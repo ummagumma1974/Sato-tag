@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "network": "simulation",
-  "name": "Il marchio segue i passaggi",
-  "description": "Un BTC marcato viene diviso e trasferito ancora. Le commissioni escono dal perimetro del modello.",
+  "name": "The mark follows each transfer",
+  "description": "One marked BTC is split and transferred again. Fees leave the modelled perimeter.",
   "transactions": [
     {
       "txid": "origin",
@@ -10,14 +10,14 @@
       "outputs": [
         {
           "value_sats": 100000000,
-          "label": "Somma marcata"
+          "label": "Marked funds"
         },
         {
           "value_sats": 100000000,
-          "label": "Somma separata"
+          "label": "Separate funds"
         }
       ],
-      "label": "Origine simulata"
+      "label": "Synthetic origin"
     },
     {
       "txid": "split",
@@ -30,14 +30,14 @@
       "outputs": [
         {
           "value_sats": 60000000,
-          "label": "Prima quota"
+          "label": "First share"
         },
         {
           "value_sats": 39900000,
-          "label": "Seconda quota"
+          "label": "Second share"
         }
       ],
-      "label": "Divisione"
+      "label": "Split"
     },
     {
       "txid": "payment",
@@ -50,14 +50,14 @@
       "outputs": [
         {
           "value_sats": 20000000,
-          "label": "Nuovo destinatario"
+          "label": "New recipient"
         },
         {
           "value_sats": 39950000,
-          "label": "Resto"
+          "label": "Change"
         }
       ],
-      "label": "Secondo trasferimento"
+      "label": "Second transfer"
     }
   ],
   "cases": [
@@ -73,10 +73,10 @@
       "evidence": [
         {
           "reference": "urn:satotag:synthetic:DEMO-001",
-          "description": "Scenario inventato per il test. Nessun furto o indirizzo reale."
+          "description": "Invented test scenario. No real theft or address."
         }
       ],
-      "note": "Attestazione simulata, non verificata da un’autorità."
+      "note": "Synthetic attestation, not verified by an authority."
     }
   ]
 }

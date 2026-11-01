@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "network": "simulation",
-  "name": "Una piccola somma non contamina tutto",
-  "description": "Mille satoshi marcati si uniscono a un BTC. La presenza resta visibile, ma la quota attribuita rimane piccola.",
+  "name": "A small amount does not taint everything",
+  "description": "One thousand marked satoshis are merged with one BTC. The mark stays visible while the attributed exposure remains small.",
   "transactions": [
     {
       "txid": "origin",
@@ -10,14 +10,14 @@
       "outputs": [
         {
           "value_sats": 1000,
-          "label": "Piccola somma marcata"
+          "label": "Small marked amount"
         },
         {
           "value_sats": 100000000,
-          "label": "Un BTC separato"
+          "label": "One separate BTC"
         }
       ],
-      "label": "Origine simulata"
+      "label": "Synthetic origin"
     },
     {
       "txid": "merge",
@@ -34,10 +34,10 @@
       "outputs": [
         {
           "value_sats": 100000000,
-          "label": "Fondi riuniti"
+          "label": "Merged funds"
         }
       ],
-      "label": "Unione"
+      "label": "Merge"
     }
   ],
   "cases": [
@@ -53,10 +53,10 @@
       "evidence": [
         {
           "reference": "urn:satotag:synthetic:DEMO-001",
-          "description": "Scenario inventato per il test. Nessun furto o indirizzo reale."
+          "description": "Invented test scenario. No real theft or address."
         }
       ],
-      "note": "Attestazione simulata, non verificata da un’autorità."
+      "note": "Synthetic attestation, not verified by an authority."
     }
   ]
 }

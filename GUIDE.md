@@ -1,179 +1,196 @@
-# SatoTag
+# SatoTag usage guide
 
-**L’antitaccheggio dei satoshi — un’idea da verificare, non una promessa.**
+**Anti-theft marks for satoshis — an idea to test.**
 
-Prototipo di ricerca offline che fa seguire un marchio di provenienza ai fondi
-in un registro di transazioni **inventate**. Include un motore Python senza
-dipendenze runtime, una demo interattiva e test automatici.
+SatoTag is an offline research prototype that follows provenance marks through
+an **invented** transaction graph. It includes a dependency-free accounting
+engine, an interactive browser demo and automated tests. Signature verification
+uses the optional governance dependency.
 
-> **Stato: proof of concept, v0.2.0.** Non modifica Bitcoin, non congela fondi,
-> non verifica furti reali e non rende obbligatorio uno sconto. Nessun wallet,
-> chiave privata, servizio esterno o indirizzo reale è coinvolto.
+> **Status: proof of concept, v0.2.1.** The prototype does not modify Bitcoin,
+> freeze funds, verify real thefts or enforce price discounts. All examples use
+> synthetic funds and publicly derivable demonstration signing keys.
 
-## Nuovo registro firmato v0.2
+## Signed registry and key authorization
 
-La demo live include anche un registro con firme Ed25519 e quorum, contestazioni,
-revoche e ricevute del controllo legate al pagamento. Il motore originale
-`analyze` continua a usare stati dichiarati: il percorso firmato usa
-`satotag.registry.replay`. Le chiavi della demo sono pubbliche e non hanno
-alcuna autorità. Le firme non dimostrano che un furto sia realmente avvenuto.
+The live demo includes Ed25519 signatures, reviewer quorum, challenges,
+revocations and payment-bound check receipts. The original `analyze` command
+uses caller-declared case statuses; `satotag.registry.replay` reconstructs
+states from signed events. The browser displays reports verified by Python
+at build time; it does not verify user-uploaded signatures.
 
-Per il registro, i nuovi test e la rigenerazione della demo installa il supporto
-opzionale: `python -m pip install -e ".[governance]"`.
+The v0.2.1 `satotag.keyring` layer adds root-authorized key activation, expiry,
+revocation and replacement by an enrolled reserve. Use `authorized-screen` and
+`authorized-verify` to enforce these controls. Legacy registry commands do not
+enforce key lifecycles. Independently current registry and manifest checkpoints,
+trusted acceptance time and protected verifier state remain integration duties.
 
-[Specifica e limiti del registro firmato](docs/GOVERNANCE.md).
+Install the optional signature support for the registry, all tests and builds:
 
-## Provalo subito
+```sh
+python -m pip install -e ".[governance]"
+```
 
-Apri **[docs/index.html](docs/index.html)** in un browser dopo aver scaricato il
-repository. La demo è un singolo file HTML, funziona offline e si adatta al
-telefono. GitHub mostra il sorgente HTML: per interagirci occorre aprire il file
-scaricato in un browser o servirlo localmente.
+Read the [signed registry specification](docs/GOVERNANCE.md) and
+[key authority specification](docs/KEY_AUTHORITY.md). Signatures identify keys;
+they do not establish the truth of an allegation or reviewer independence.
 
-Per chi ha Python 3.11 o successivo, dalla cartella del progetto:
+## Try it now
 
-```bash
+Open the **[live demo](https://ummagumma1974.github.io/Sato-tag/)**. No account,
+download or wallet connection is required. All project pages are in English.
+
+For offline use, download the source repository and open
+[docs/index.html](docs/index.html) in a browser. The demo is a self-contained
+HTML file and works on a phone. GitHub's file viewer displays HTML source;
+open the downloaded file in a browser or serve it locally to interact with it.
+
+With Python 3.11 or later, run these commands from the project directory:
+
+```sh
 python -m satotag analyze examples/split.json
 python -m satotag analyze examples/mixed.json --haircut 60 --output report.json
 python -m unittest discover -s tests -v
 ```
 
-Per il solo comando `analyze` non occorre installare pacchetti. Il registro firmato, i test completi e la generazione della demo richiedono il supporto opzionale indicato sopra. Su alcuni sistemi il comando è `python3`.
-Per vedere la demo attraverso un piccolo server locale:
+The `analyze` command needs no additional packages. The full test suite and demo
+build require the optional signature support above. Some systems use `python3`.
 
-```bash
+To serve the demo locally:
+
+```sh
 python -m http.server 8000 --bind 127.0.0.1 --directory docs
 ```
 
-Apri `http://127.0.0.1:8000` sullo stesso dispositivo. Un telefono diverso non
-può accedere a quell’indirizzo: la demo resta locale.
+Open `http://127.0.0.1:8000` on the same device. Another phone cannot access that
+loopback address; the server remains local.
 
-## Cosa è stato costruito
+## Implemented behavior
 
-| Componente | Comportamento effettivo |
-|---|---|
-| Registro di casi | Prove dichiarate, output iniziali, stato `pending`, `accepted`, `revoked` |
-| Motore di propagazione | Il riferimento al caso resta sui discendenti finché il caso è attivo |
-| Attribuzione proporzionale | Una quota marcata piccola non trasforma l’intero saldo in refurtiva |
-| Contabilità esatta | Frazioni razionali; nessun arrotondamento che cancelli piccole quote |
-| Controlli | Input mancanti, doppie spese, cicli, valori non validi e origini sovrapposte rifiutati |
-| Simulatore economico | Uno sconto ipotetico modifica una valutazione, **mai il saldo** |
-| Demo | Quattro scenari, selezione delle destinazioni, sconto regolabile ed esportazione JSON |
-| Riproducibilità | Hash del dataset, output deterministico, test e workflow GitHub Actions |
+| Component | Actual behavior |
+| --- | --- |
+| Case records | Declared evidence, seed outputs and case status |
+| Propagation engine | Keeps references to active cases on descendant outputs |
+| Proportional attribution | A small marked share does not label the whole balance as stolen |
+| Exact accounting | Rational fractions preserve small exposures without rounding them away |
+| Validation | Rejects missing inputs, double spends, cycles, invalid values and overlapping origins |
+| Economic simulation | A hypothetical discount changes a quote, **never the balance** |
+| Interactive demo | Four scenarios, selectable outputs, adjustable discount and JSON exports |
+| Signed registry | Verifies signatures, quorum, linked history and payment-check receipts |
+| Key authority | Checks root-signed operating-key lifecycles through the authorized entry points |
+| Reproducibility | Dataset hashes, deterministic output, tests and GitHub Actions checks |
 
-## I quattro esperimenti
+## The four experiments
 
-1. **Dividi e trasferisci:** il marchio sopravvive a più passaggi.
-2. **Unisci due provenienze:** 1 BTC marcato più 4 BTC non marcati nel dataset
-   produce un’esposizione modellata del 20%, non del 100%.
-3. **Piccole somme:** 1.000 satoshi marcati non fanno diventare interamente
-   sospetto un BTC unito ad essi. La presenza resta visibile, la quantità resta
-   proporzionata.
-4. **Correzione:** una revoca elimina l’effetto attivo al ricalcolo. Il caso
-   rimane nel report per rendere visibile la decisione. Conservare i precedenti
-   dataset in Git è una scelta del revisore, non un audit log garantito dal motore.
+1. **Split and transfer:** the mark survives multiple modeled transfers.
+2. **Merge two origins:** one marked BTC plus four unmarked BTC in the dataset
+   produces 20% modeled exposure rather than 100%.
+3. **Small amounts:** 1,000 marked satoshis merged with one BTC remain visible
+   without treating the entire BTC as stolen. Exposure stays proportional.
+4. **Correction:** revocation removes the active effect on recalculation. The
+   case stays in the report so the decision remains visible. Keeping earlier
+   datasets in Git is a reviewer's choice, not a guaranteed audit log supplied
+   by the accounting engine.
 
-## Come funziona il marchio
+## How the mark works
 
-Un caso accettato identifica uno o più **output interi** come origine marcata.
-Ogni transazione distribuisce l’esposizione in proporzione ai valori degli
-output e delle commissioni. Il riferimento al caso rimane anche con esposizione
-molto piccola: non esiste una soglia che lo cancelli.
+An accepted case identifies one or more **whole outputs** as marked origins.
+Each transaction allocates exposure in proportion to output values and fees.
+The case reference remains even at very small exposure: there is no threshold
+that silently clears it.
 
 ```text
-E_output = E_input × valore_output / valore_totale_input
-E_fee    = E_input × commissione / valore_totale_input
+E_output = E_input * output_value / total_input_value
+E_fee    = E_input * fee / total_input_value
 ```
 
-`E` è l’esposizione contabile attribuita, non una probabilità di colpa.
-Le frazioni di satoshi sono solo stime di esposizione; gli importi delle
-transazioni restano numeri interi di satoshi. Non assumiamo di identificare
-ogni singolo satoshi originale: in un’unione non esiste un abbinamento univoco
-imposto da Bitcoin tra ogni input e ogni output.
+`E` is attributed accounting exposure, not a probability of guilt. Fractional
+satoshis are exposure estimates only; transaction values stay integer satoshis.
+The model does not identify every original satoshi. Bitcoin does not impose a
+unique pairing of each input with each output in a merged transaction.
 
-Lo sconto della demo è **60% della sola quota attribuita** per impostazione
-iniziale. Esempio: un output da 1 BTC, con esposizione pari a 0,2 BTC, ha una
-valutazione ipotetica equivalente a 0,88 BTC. Il suo saldo spendibile resta
-1 BTC. Chi non adotta questa politica può ignorarla: il prezzo non è imposto
-dal software, né questo modello ne prevede l’andamento.
+The demo defaults to a **60% discount on attributed exposure only**. An output
+with a balance of 1 BTC and exposure of 0.2 BTC therefore has a hypothetical
+quote equivalent to 0.88 BTC. Its spendable balance stays 1 BTC. Participants
+can ignore this voluntary policy; the software neither enforces nor forecasts
+a market price.
 
-## Le cose che questa versione non risolve
+## What the prototype does not resolve
 
-- **Autorità:** `accepted` è una dichiarazione dell’input. Nessuna prova viene
-  scaricata, verificata o autenticata. Un hash non certifica la verità di un’accusa.
-- **Perimetro:** non ci sono nodo Bitcoin, parsing di transazioni reali, verifiche
-  crittografiche delle firme, consenso, blocchi, conferme o gestione delle reorg.
-- **Confini:** commissioni, coinbase, scambi tra asset, intermediari custodial e
-  percorsi non ricostruibili non sono seguiti oltre il dataset. Le commissioni
-  sono registrate come uscita dal perimetro, non come fondi “ripuliti”.
-- **Incertezza:** dati mancanti vengono rifiutati; una transazione origine è
-  un punto di partenza dichiarato, non una certificazione di provenienza lecita.
-  Il motore v0.1 non stima probabilità né risolve associazioni ambigue.
-- **Tutela dei terzi:** esposizione e colpevolezza sono concetti distinti.
-  L’algoritmo non prende decisioni legali o automatizza sequestri.
-- **Permanenza reale:** la persistenza è una regola di questa simulazione.
-  Rendere un marchio obbligatorio su Bitcoin richiederebbe un cambiamento di
-  protocollo e consenso; vedere [la proposta di ricerca](docs/PROTOCOL_PROPOSAL.md).
+- **Evidence truth:** the accounting engine accepts `accepted` as an input
+  assertion. The signed path authenticates keys and decisions, not the truth
+  of evidence. A hash does not certify an accusation.
+- **Real-chain validation:** there is no Bitcoin node, real transaction parser,
+  Bitcoin signature validation, consensus, blocks, confirmations or reorg handling.
+  The optional Ed25519 signatures belong to the external simulation registry.
+- **Perimeter:** miner payments, coinbase transactions, cross-asset swaps,
+  custodial intermediaries and unknown paths are not followed beyond the
+  dataset. Fees are recorded as leaving its perimeter, not as laundered funds.
+- **Uncertainty:** missing data is rejected. A synthetic origin is a declared
+  starting point, not proof of lawful provenance. The engine neither estimates
+  probabilities nor resolves ambiguous real-world associations.
+- **Third-party protection:** exposure and guilt are distinct. The algorithm
+  does not make legal decisions or automate seizures.
+- **Network-wide persistence:** persistence is a simulation rule. Making marks
+  mandatory on Bitcoin would require protocol changes and adoption. See the
+  [protocol research proposal](docs/PROTOCOL_PROPOSAL.md).
 
-La taint analysis e il controllo di provenienza esistono già. SatoTag non
-rivendica di averli inventati. Questo repository rende esplorabili le regole,
-le conseguenze della marcatura e i limiti di una penalità ipotetica.
+Taint analysis and provenance screening already exist. SatoTag does not claim
+to have invented them. This repository makes the rules, consequences and limits
+of an experimental marking policy inspectable.
 
-## Sviluppo e verifica
+## Development and verification
 
-```bash
+```sh
 python -m unittest discover -s tests -v
 python tools/build_demo.py
 python tools/build_demo.py --check
+python -m tools.keyring_demo
+python -m tools.keyring_demo --check
 ```
 
-La demo contiene report generati dallo **stesso motore Python**, non una seconda
-implementazione del tracciamento. Il browser ricalcola solo lo sconto con
-aritmetica razionale BigInt. I valori a schermo sono arrotondati; il JSON esportato
-mantiene le frazioni esatte. Gli scenari non caricano dati dalla rete.
+The demo embeds reports generated by the **same Python engine**, not a second
+tracking implementation. The browser recalculates only the discount using
+BigInt rational arithmetic. Display values are rounded; exported JSON keeps
+exact fractions. The scenarios do not load data from the network.
 
-Il workflow `Test SatoTag` verifica Python 3.11, 3.12 e 3.13 e controlla che la
-demo sia allineata al motore. Il risultato di una CI remota va verificato nel
-repository: la presenza del file workflow non implica che sia già passata.
+The `Test SatoTag` workflow runs Python 3.11, 3.12 and 3.13, checks demo freshness
+and verifies the key-authority fixture. Check the actual run results in GitHub;
+a workflow file alone is not evidence that checks passed.
 
-## Mappa dei file
+## File map
 
-| Percorso | Contenuto |
-|---|---|
-| `satotag/engine.py` | Validazione, ordinamento del grafo, esposizioni, report |
-| `satotag/__main__.py` | CLI con errori leggibili e limite di input |
-| `examples/*.json` | Quattro dataset dichiaratamente fittizi |
-| `tests/test_engine.py` | Test di regressione e 100 grafi generati per le invarianti |
-| `tools/build_demo.py` | Generazione riproducibile della demo |
-| `tools/demo_template.html` | Interfaccia offline |
-| `docs/index.html` | Demo pronta da aprire |
-| `docs/SCHEMA.md` | Formato dei dati e contratto del report |
-| `docs/THREAT_MODEL.md` | Limiti, abusi possibili e mitigazioni |
-| `docs/PROTOCOL_PROPOSAL.md` | Cosa mancherebbe per un marchio imposto dalla rete |
+| Path | Contents |
+| --- | --- |
+| `satotag/engine.py` | Validation, graph ordering, exposure accounting and reports |
+| `satotag/registry.py` | Signed registry, screening and check receipts |
+| `satotag/keyring.py` | Root-authorized key lifecycles and update checks |
+| `satotag/__main__.py` | CLI with readable errors and input limits |
+| `examples/*.json` | Synthetic scenarios and reproducible signed fixtures |
+| `tests/` | Accounting, registry, key-authority and CLI checks |
+| `tools/build_demo.py` | Reproducible demo generation |
+| `tools/demo_template.html` | English offline interface |
+| `tools/keyring_demo.py` | Public-key authority fixture generator |
+| `docs/index.html` | Ready-to-open interactive demo |
+| `docs/research.html` | Public technical overview |
+| `docs/SCHEMA.md` | Data format and report contract |
+| `docs/THREAT_MODEL.md` | Threats and mitigation boundaries |
+| `docs/PROTOCOL_PROPOSAL.md` | Requirements for a possible network-level mark |
 
-## Prossimi esperimenti, in ordine
+## Next experiments
 
-1. Revisione indipendente delle regole di attribuzione e dei test.
-2. Attestazioni firmate da più revisori, revoche e cronologia verificabile.
-3. Importatore **in sola lettura** da Bitcoin Core regtest, con gestione delle reorg.
-4. Studio di un protocollo sperimentale separato: nessuna pretesa di modificare mainnet.
-5. Misurazione di falsi positivi e danni ai terzi prima di qualsiasi uso su fondi reali.
+1. Independent review of attribution rules and tests.
+2. Production designs for key custody, checkpoint distribution and recovery.
+3. A **read-only** Bitcoin Core regtest importer with reorg handling.
+4. A separate experimental protocol study with no claim to modify mainnet.
+5. Measurement of false positives and third-party harm before any use with real funds.
 
-## Riferimenti
+## References
 
-- [Bitcoin — transazioni e output](https://developer.bitcoin.org/devguide/transactions.html)
-- [Bitcoin — formato delle transazioni](https://developer.bitcoin.org/reference/transactions.html)
-- [Chainalysis — address screening](https://www.chainalysis.com/product/address-screening/)
-- [Elliptic — wallet e transaction screening](https://www.elliptic.co/products/lens/)
+- [Bitcoin transactions and outputs](https://developer.bitcoin.org/devguide/transactions.html)
+- [Bitcoin transaction format](https://developer.bitcoin.org/reference/transactions.html)
+- [Chainalysis address screening](https://www.chainalysis.com/product/address-screening/)
+- [Elliptic wallet and transaction screening](https://www.elliptic.co/products/lens/)
 
-Ideazione: ummagumma1974. Codice prototipale sviluppato con assistenza AI; non sottoposto
-ad audit indipendente. Licenza [MIT](LICENSE).
-
-## English summary
-
-SatoTag is an offline, synthetic-UTXO research prototype for persistent,
-evidence-linked exposure marks. It uses exact proportional accounting, separates
-lineage from exposure size, supports case revocation, and includes an interactive
-offline demo. It is **not** a Bitcoin consensus change, an authenticated theft
-registry, a production AML service, or an enforceable price haircut.
-
+Original idea: ummagumma1974. Prototype code developed with AI assistance;
+not independently audited. [MIT license](LICENSE).

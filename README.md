@@ -2,11 +2,10 @@
 
 **Open-source Bitcoin provenance research: UTXO exposure tracking, signed case reports and root-authorized key lifecycles.**
 
-[Try the demo](https://ummagumma1974.github.io/Sato-tag/) · [English research overview](https://ummagumma1974.github.io/Sato-tag/research.html) · [Download v0.2.1 source ZIP](https://github.com/ummagumma1974/Sato-tag/archive/78183d3ce0c5e7ca671404a643accfbb516c32cb.zip) · [Public review challenge](https://github.com/ummagumma1974/Sato-tag/issues/3)
+[Try the demo](https://ummagumma1974.github.io/Sato-tag/) · [Research overview](https://ummagumma1974.github.io/Sato-tag/research.html) · [Download current source ZIP](https://github.com/ummagumma1974/Sato-tag/archive/refs/heads/main.zip) · [Public review challenge](https://github.com/ummagumma1974/Sato-tag/issues/3)
 
 Synthetic, offline research prototype. MIT license. No token, wallet connection or Bitcoin consensus change. See the research overview for scope and reproducible checks.
 
-English
 
 SatoTag started with a question I still can’t get my head around.
 
@@ -26,44 +25,21 @@ That’s what the code is for: putting the idea on the table and trying to break
 
 Let’s see where it holds up.
 
-⸻
-
-Italiano
-
-SatoTag nasce da una domanda che ancora non mi torna.
-
-Uno ruba, sposta, divide, mescola. Rimane una traccia. E poi? Chi accetta quei soldi? Come li spendi?
-
-Da lì l’idea: proviamo a “timbrare” la provenienza e vediamo cosa succede nei passaggi successivi.
-
-Abbiamo preparato una demo con dati inventati. Puoi dividere i fondi, unirli ad altri, vedere quanto pesa la quota segnalata e cosa cambia quando una segnalazione viene revocata. Puoi anche simulare uno sconto su quella quota.
-
-Per adesso è un laboratorio. Non blocca bitcoin e non decide quanto valgono davvero.
-
-Ma il punto delicato arriva subito: chi mette il timbro? Con quali prove? E se sbaglia?
-
-Perché voglio capire se questa idea può funzionare senza dare a qualcuno il potere di decidere quali bitcoin valgono e quali no. Se no è come carta Fiat.
-
-Il codice serve a questo: mettere l’idea sul tavolo e provare a romperla.
-
-Vediamo dove regge.
-
 ---
 
-## Try it / Provalo
+## Try it
 
-**[Open the live demo / Apri la demo interattiva](https://ummagumma1974.github.io/Sato-tag/)**
+**[Open the live demo](https://ummagumma1974.github.io/Sato-tag/)**
 
 Works in your browser, including on a phone. No downloads or wallet connection required. All scenarios use fictional data.
 
-Funziona nel browser, anche dal telefono. Nessun download o collegamento a wallet. Tutti gli scenari usano dati inventati.
 
-- [Usage guide / Guida e istruzioni](GUIDE.md)
-- [Downloadable offline demo / Demo offline scaricabile](docs/index.html)
-- [Python source / Codice Python](satotag/engine.py)
+- [Usage guide](GUIDE.md)
+- [Downloadable offline demo](docs/index.html)
+- [Python source](satotag/engine.py)
 
 
-## v0.2 — Signed registry / Registro firmato
+## v0.2 — Signed registry
 
 The prototype now verifies Ed25519 attestations, a reviewer quorum, hash-linked
 case history and signed payment-check receipts. Late signals trigger manual
@@ -72,13 +48,7 @@ Verifier-selected trust keys and an independently obtained latest checkpoint
 are required. The public demo uses deliberately public test keys and fictional
 evidence. Signatures do not prove theft or reviewer independence.
 
-Il prototipo ora verifica firme Ed25519, quorum dei revisori, cronologia collegata
-tramite hash e ricevute firmate del controllo. Le segnalazioni tardive richiedono
-una revisione manuale: una vecchia ricevuta non cancella il tag e non garantisce
-immunità. Servono chiavi scelte dal verificatore e un checkpoint aggiornato ottenuto
-indipendentemente. Nella demo tutte le chiavi sono pubbliche e i casi inventati.
-
-[Protocol, limitations and adversarial tests / Protocollo, limiti e test](docs/GOVERNANCE.md)
+[Protocol, limitations and adversarial tests](docs/GOVERNANCE.md)
 
 ```bash
 python -m pip install -e ".[governance]"
@@ -86,7 +56,7 @@ python -m unittest discover -s tests -v
 python tools/build_demo.py --check
 ```
 
-## v0.2.1 — Key authorization / Autorizzazione delle chiavi
+## v0.2.1 — Key authorization
 
 Root-signed key lifetimes, irreversible revocation checks and replacement by a
 pre-enrolled reserve are now available through `satotag.keyring` and the
@@ -94,9 +64,4 @@ pre-enrolled reserve are now available through `satotag.keyring` and the
 pinned root public key and current manifest hash, in addition to the registry
 checkpoint. Legacy APIs do not enforce key lifecycles.
 
-La chiave principale autorizza le chiavi operative: ogni chiave ha una durata
-e un ruolo. Una chiave revocata viene rifiutata anche se la ricevuta era stata
-firmata prima. L'esempio mostra anche il passaggio a una chiave di riserva già
-autorizzata. Le chiavi dell'esempio sono pubbliche; non usarle per fondi reali.
-
-[Protocol, integration and reproducible example / Protocollo ed esempio](docs/KEY_AUTHORITY.md).
+[Protocol, integration and reproducible example](docs/KEY_AUTHORITY.md).

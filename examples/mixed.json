@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "network": "simulation",
-  "name": "Unione di fondi",
-  "description": "Un BTC marcato si unisce a quattro BTC non marcati nel dataset. Il modello attribuisce proporzionalmente l’esposizione, non una colpa.",
+  "name": "Merging funds",
+  "description": "One marked BTC is merged with four unmarked BTC in the dataset. The model allocates exposure proportionally; it does not assign guilt.",
   "transactions": [
     {
       "txid": "origin",
@@ -10,14 +10,14 @@
       "outputs": [
         {
           "value_sats": 100000000,
-          "label": "Somma marcata"
+          "label": "Marked funds"
         },
         {
           "value_sats": 400000000,
-          "label": "Altra somma"
+          "label": "Other funds"
         }
       ],
-      "label": "Origine simulata"
+      "label": "Synthetic origin"
     },
     {
       "txid": "merge",
@@ -34,14 +34,14 @@
       "outputs": [
         {
           "value_sats": 250000000,
-          "label": "Destinatario A"
+          "label": "Recipient A"
         },
         {
           "value_sats": 249900000,
-          "label": "Destinatario B"
+          "label": "Recipient B"
         }
       ],
-      "label": "Unione e nuova divisione"
+      "label": "Merge and split again"
     }
   ],
   "cases": [
@@ -57,10 +57,10 @@
       "evidence": [
         {
           "reference": "urn:satotag:synthetic:DEMO-001",
-          "description": "Scenario inventato per il test. Nessun furto o indirizzo reale."
+          "description": "Invented test scenario. No real theft or address."
         }
       ],
-      "note": "Attestazione simulata, non verificata da un’autorità."
+      "note": "Synthetic attestation, not verified by an authority."
     }
   ]
 }
