@@ -78,3 +78,18 @@ python -m pip install -e ".[governance]"
 python -m unittest discover -s tests -v
 python tools/build_demo.py --check
 ```
+
+## v0.2.1 — Key authorization / Autorizzazione delle chiavi
+
+Root-signed key lifetimes, irreversible revocation checks and replacement by a
+pre-enrolled reserve are now available through `satotag.keyring` and the
+`authorized-screen` / `authorized-verify` commands. They require an independently
+pinned root public key and current manifest hash, in addition to the registry
+checkpoint. Legacy APIs do not enforce key lifecycles.
+
+La chiave principale autorizza le chiavi operative: ogni chiave ha una durata
+e un ruolo. Una chiave revocata viene rifiutata anche se la ricevuta era stata
+firmata prima. L'esempio mostra anche il passaggio a una chiave di riserva già
+autorizzata. Le chiavi dell'esempio sono pubbliche; non usarle per fondi reali.
+
+[Protocol, integration and reproducible example / Protocollo ed esempio](docs/KEY_AUTHORITY.md).

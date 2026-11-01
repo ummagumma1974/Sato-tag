@@ -36,19 +36,29 @@ def main(argv=None):
     cmd.add_argument("input", type=Path, help="JSON simulation dataset (max 4 MiB)")
     cmd.add_argument("--haircut", default="60", help="Hypothetical discount on exposure, 0..100 (default: 60)")
     cmd.add_argument("--output", type=Path, help="Save JSON; defaults to stdout")
-    for command in ("registry", "verify-receipt"):
-        gov = sub.add_parser(command, help="Verify signed simulation registry" if command == "registry" else "Verify a payment-check receipt and recheck current marks")
+    for command in ("registry", "verify-receipt", "authorized-screen", "authorized-verify"):
+        descriptions = {"registry": "Low-level registry verification (no key lifecycle checks)",
+                        "verify-receipt": "Low-level receipt verification (no key lifecycle checks)",
+                        "authorized-screen": "Screen a payment with root-authorized key lifecycles",
+                        "authorized-verify": "Verify a receipt with current root-authorized key lifecycles"}
+        gov = sub.add_parser(command, help=descriptions[command])
         gov.add_argument("input", type=Path, help="JSON object with ledger and events")
-        gov.add_argument("--trust", type=Path, required=True, help="Verifier-chosen public keys and quorum; never trust arbitrary bundled keys")
+        if command.startswith("authorized-"):
+            gov.add_argument("--manifest", type=Path, required=True, help="Root-signed key authorization manifest")
+            gov.add_argument("--root-key", required=True, help="Independently pinned Ed25519 root public key")
+            gov.add_argument("--manifest-checkpoint", required=True, help="Independently obtained latest manifest hash")
+        else:
+            gov.add_argument("--trust", type=Path, required=True, help="Low-level verifier-chosen keys; no lifecycle enforcement")
         gov.add_argument("--as-of", required=True, help="UTC check/acceptance time")
         gov.add_argument("--checkpoint", required=True, help="Independently obtained latest registry head hash")
         gov.add_argument("--output", type=Path)
-        if command == "verify-receipt":
+        if command in ("verify-receipt", "authorized-verify"):
             gov.add_argument("--receipt", type=Path, required=True)
+        if command in ("verify-receipt", "authorized-verify", "authorized-screen"):
             gov.add_argument("--payment", type=Path, required=True)
     args = parser.parse_args(argv)
     try:
-        inputs = [args.input] + [getattr(args, k) for k in ("trust", "receipt", "payment") if hasattr(args, k)]
+        inputs = [args.input] + [getattr(args, k) for k in ("trust", "receipt", "payment", "manifest") if hasattr(args, k)]
         if args.output and args.output.resolve() in [p.resolve() for p in inputs]:
             raise ValidationError("Output must not overwrite the input dataset")
         data = _load(args.input)
@@ -61,11 +71,19 @@ def main(argv=None):
                 raise ValidationError('Install signature support: python -m pip install -e ".[governance]"') from None
             if not isinstance(data, dict) or set(data) != {"ledger", "events"}:
                 raise ValidationError("Registry bundle must contain exactly ledger and events")
-            trust = _load(args.trust)
-            if args.command == "registry":
+            if args.command.startswith("authorized-"):
+                from .keyring import authorized_screen, authorized_verify
+                common = (data["ledger"], data["events"], _load(args.manifest), args.root_key,
+                          args.manifest_checkpoint, args.as_of)
+                if args.command == "authorized-screen":
+                    report = authorized_screen(*common, _load(args.payment), args.checkpoint)
+                else:
+                    report = authorized_verify(*common, _load(args.receipt), _load(args.payment), args.checkpoint)
+            elif args.command == "registry":
+                trust = _load(args.trust)
                 report = replay(data["ledger"], data["events"], trust, args.as_of, args.checkpoint)
             else:
-                report = verify_receipt(data["ledger"], data["events"], trust,
+                report = verify_receipt(data["ledger"], data["events"], _load(args.trust),
                                         _load(args.receipt), _load(args.payment), args.as_of, args.checkpoint)
         text = json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
         if args.output:

@@ -123,10 +123,15 @@ application integrating these APIs; this library provides no durable replay stor
 
 Do not use this prototype to accept/refuse real deposits. Before that, it needs
 an independent audit, external timestamp/checkpoint publication, evidence review
-procedures, key rotation/revocation, authenticated current-state distribution,
+procedures, production key custody/recovery, authenticated current-state distribution,
 durable replay protection, real-chain imports with reorg handling, privacy
 controls and measured false-positive/false-negative rates.
 
 The live page shows **Python-verified, precomputed fixture results**, not a
 browser verifier for user-supplied signatures. Its JSON export includes public
 trust keys for reproduction; it is not an authority certificate.
+
+The optional [v0.2.1 key authority layer](KEY_AUTHORITY.md) now implements signed
+key lifetimes, revocations and pre-enrolled reserve replacement. Use its
+authorization-enforcing entry points; the low-level APIs described above remain
+available for research and legacy fixtures.

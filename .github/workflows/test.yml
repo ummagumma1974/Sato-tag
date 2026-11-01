@@ -19,4 +19,5 @@ jobs:
       - run: python -m pip install -e ".[governance]"
       - run: python -m unittest discover -s tests -v
       - run: python tools/build_demo.py --check
-
+      - name: Verify key authority fixture
+        run: python -m tools.keyring_demo --check

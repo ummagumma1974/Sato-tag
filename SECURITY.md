@@ -1,5 +1,15 @@
 # Security
 
+## v0.2.1 key authority
+
+The new `authorized-*` CLI and `satotag.keyring` enforce root-signed validity
+windows, current revocations, distinct roles and pinned current manifests.
+Legacy registry APIs remain low-level and do not enforce those controls.
+See [KEY_AUTHORITY.md](docs/KEY_AUTHORITY.md) for persisted trust requirements,
+conservative rejection of revoked historical signatures and recovery boundaries.
+No production root has been created. Offline root custody is an operator duty;
+all shipped keys are public test fixtures.
+
 ## v0.2 signed-registry boundary
 
 See [the governance threat model](docs/GOVERNANCE.md). Cryptographic verification
