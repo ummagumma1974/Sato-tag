@@ -1,4 +1,11 @@
 # Sato-tag
+
+**Open-source Bitcoin provenance research: UTXO exposure tracking, signed case reports and root-authorized key lifecycles.**
+
+[Try the demo](https://ummagumma1974.github.io/Sato-tag/) · [English research overview](https://ummagumma1974.github.io/Sato-tag/research.html) · [Download v0.2.1 source ZIP](https://github.com/ummagumma1974/Sato-tag/archive/78183d3ce0c5e7ca671404a643accfbb516c32cb.zip) · [Public review challenge](https://github.com/ummagumma1974/Sato-tag/issues/3)
+
+Synthetic, offline research prototype. MIT license. No token, wallet connection or Bitcoin consensus change. See the research overview for scope and reproducible checks.
+
 English
 
 SatoTag started with a question I still can’t get my head around.
