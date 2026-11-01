@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "network": "simulation",
+  "name": "Correggere un marchio sbagliato",
+  "description": "La segnalazione è revocata. Il caso resta nel registro del report, ma non produce esposizione attiva.",
+  "transactions": [
+    {
+      "txid": "origin",
+      "inputs": [],
+      "outputs": [
+        {
+          "value_sats": 100000000,
+          "label": "Somma marcata"
+        },
+        {
+          "value_sats": 100000000,
+          "label": "Somma separata"
+        }
+      ],
+      "label": "Origine simulata"
+    },
+    {
+      "txid": "split",
+      "inputs": [
+        {
+          "txid": "origin",
+          "vout": 0
+        }
+      ],
+      "outputs": [
+        {
+          "value_sats": 60000000,
+          "label": "Prima quota"
+        },
+        {
+          "value_sats": 39900000,
+          "label": "Seconda quota"
+        }
+      ],
+      "label": "Divisione"
+    },
+    {
+      "txid": "payment",
+      "inputs": [
+        {
+          "txid": "split",
+          "vout": 0
+        }
+      ],
+      "outputs": [
+        {
+          "value_sats": 20000000,
+          "label": "Nuovo destinatario"
+        },
+        {
+          "value_sats": 39950000,
+          "label": "Resto"
+        }
+      ],
+      "label": "Secondo trasferimento"
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "DEMO-001",
+      "status": "revoked",
+      "seeds": [
+        {
+          "txid": "origin",
+          "vout": 0
+        }
+      ],
+      "evidence": [
+        {
+          "reference": "urn:satotag:synthetic:DEMO-001",
+          "description": "Scenario inventato per il test. Nessun furto o indirizzo reale."
+        }
+      ],
+      "note": "Revoca dimostrativa: una segnalazione deve poter essere corretta."
+    }
+  ]
+}
