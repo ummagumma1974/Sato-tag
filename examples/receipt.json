@@ -1,0 +1,29 @@
+{
+  "payload": {
+    "result": "no_known_mark",
+    "request_hash": "74916d67d95ef230dce9082f00bb5f463fe3d31095c7120bdaa240b8787e01fd",
+    "snapshot_head": "0000000000000000000000000000000000000000000000000000000000000000",
+    "snapshot_event_count": 0,
+    "dataset_hash": "ed5042c2ec8a4190dd5208c2eff7f1d5167467c41fccd8f37145db66a8e418da",
+    "policy_hash": "e0b2b5ff01f2effc71c13b140b566f4eced5e4b87c9caa0586648c7ab50edab2",
+    "registry_id": "DEMO-NOT-AUTHORITY",
+    "as_of": "2026-11-01T12:00:00Z",
+    "request": {
+      "request_id": "DEMO-ORDER-001",
+      "inputs": [
+        "split:1"
+      ],
+      "recipient": "synthetic-recipient",
+      "amount_sats": 100000
+    },
+    "version": 2,
+    "checker_id": "checker",
+    "expires_at": "2026-11-01T12:05:00Z"
+  },
+  "signatures": [
+    {
+      "key_id": "checker",
+      "signature": "04e597b42c96991bbc57845fb0b2de730179f798298e5d8c4f12f23a46a5031cbca338aedc27b8b67b65b83595b9b84db41e6b8b84d00fc4aa40100701b3280a"
+    }
+  ]
+}

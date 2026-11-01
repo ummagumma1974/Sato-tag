@@ -1,0 +1,8 @@
+{
+  "request_id": "DEMO-ORDER-001",
+  "inputs": [
+    "split:1"
+  ],
+  "recipient": "synthetic-recipient",
+  "amount_sats": 100000
+}

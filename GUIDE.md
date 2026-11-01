@@ -6,9 +6,22 @@ Prototipo di ricerca offline che fa seguire un marchio di provenienza ai fondi
 in un registro di transazioni **inventate**. Include un motore Python senza
 dipendenze runtime, una demo interattiva e test automatici.
 
-> **Stato: proof of concept, v0.1.0.** Non modifica Bitcoin, non congela fondi,
+> **Stato: proof of concept, v0.2.0.** Non modifica Bitcoin, non congela fondi,
 > non verifica furti reali e non rende obbligatorio uno sconto. Nessun wallet,
 > chiave privata, servizio esterno o indirizzo reale è coinvolto.
+
+## Nuovo registro firmato v0.2
+
+La demo live include anche un registro con firme Ed25519 e quorum, contestazioni,
+revoche e ricevute del controllo legate al pagamento. Il motore originale
+`analyze` continua a usare stati dichiarati: il percorso firmato usa
+`satotag.registry.replay`. Le chiavi della demo sono pubbliche e non hanno
+alcuna autorità. Le firme non dimostrano che un furto sia realmente avvenuto.
+
+Per il registro, i nuovi test e la rigenerazione della demo installa il supporto
+opzionale: `python -m pip install -e ".[governance]"`.
+
+[Specifica e limiti del registro firmato](docs/GOVERNANCE.md).
 
 ## Provalo subito
 
@@ -25,7 +38,7 @@ python -m satotag analyze examples/mixed.json --haircut 60 --output report.json
 python -m unittest discover -s tests -v
 ```
 
-Non occorre installare pacchetti. Su alcuni sistemi il comando è `python3`.
+Per il solo comando `analyze` non occorre installare pacchetti. Il registro firmato, i test completi e la generazione della demo richiedono il supporto opzionale indicato sopra. Su alcuni sistemi il comando è `python3`.
 Per vedere la demo attraverso un piccolo server locale:
 
 ```bash
@@ -163,3 +176,4 @@ evidence-linked exposure marks. It uses exact proportional accounting, separates
 lineage from exposure size, supports case revocation, and includes an interactive
 offline demo. It is **not** a Bitcoin consensus change, an authenticated theft
 registry, a production AML service, or an enforceable price haircut.
+

@@ -255,7 +255,7 @@ this engine. A hash identifies the input content, not a trusted authority.
     fingerprint = hashlib.sha256(json.dumps(data, sort_keys=True, separators=(",", ":"),
                                            ensure_ascii=True).encode()).hexdigest()
     return {
-        "schema_version": 1, "engine_version": "0.1.0", "network": "simulation",
+        "schema_version": 1, "engine_version": "0.2.0", "network": "simulation",
         "name": data.get("name", "SatoTag simulation"), "description": data.get("description", ""),
         "dataset_sha256": fingerprint, "attribution_model": "proportional",
         "haircut_percent": format(Decimal(str(haircut_percent)).normalize(), "f"),
@@ -283,3 +283,4 @@ this engine. A hash identifies the input content, not a trusted authority.
             "value_conserved": True, "exposure_conserved_including_fees": True,
         },
     }
+
