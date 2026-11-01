@@ -54,3 +54,27 @@ Funziona nel browser, anche dal telefono. Nessun download o collegamento a walle
 - [Usage guide / Guida e istruzioni](GUIDE.md)
 - [Downloadable offline demo / Demo offline scaricabile](docs/index.html)
 - [Python source / Codice Python](satotag/engine.py)
+
+
+## v0.2 — Signed registry / Registro firmato
+
+The prototype now verifies Ed25519 attestations, a reviewer quorum, hash-linked
+case history and signed payment-check receipts. Late signals trigger manual
+review; an earlier receipt never removes a tag or grants automatic immunity.
+Verifier-selected trust keys and an independently obtained latest checkpoint
+are required. The public demo uses deliberately public test keys and fictional
+evidence. Signatures do not prove theft or reviewer independence.
+
+Il prototipo ora verifica firme Ed25519, quorum dei revisori, cronologia collegata
+tramite hash e ricevute firmate del controllo. Le segnalazioni tardive richiedono
+una revisione manuale: una vecchia ricevuta non cancella il tag e non garantisce
+immunità. Servono chiavi scelte dal verificatore e un checkpoint aggiornato ottenuto
+indipendentemente. Nella demo tutte le chiavi sono pubbliche e i casi inventati.
+
+[Protocol, limitations and adversarial tests / Protocollo, limiti e test](docs/GOVERNANCE.md)
+
+```bash
+python -m pip install -e ".[governance]"
+python -m unittest discover -s tests -v
+python tools/build_demo.py --check
+```

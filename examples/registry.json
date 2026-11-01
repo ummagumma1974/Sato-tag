@@ -1,0 +1,179 @@
+{
+  "ledger": {
+    "schema_version": 1,
+    "network": "simulation",
+    "name": "Il marchio segue i passaggi",
+    "description": "Un BTC marcato viene diviso e trasferito ancora. Le commissioni escono dal perimetro del modello.",
+    "transactions": [
+      {
+        "txid": "origin",
+        "inputs": [],
+        "outputs": [
+          {
+            "value_sats": 100000000,
+            "label": "Somma marcata"
+          },
+          {
+            "value_sats": 100000000,
+            "label": "Somma separata"
+          }
+        ],
+        "label": "Origine simulata"
+      },
+      {
+        "txid": "split",
+        "inputs": [
+          {
+            "txid": "origin",
+            "vout": 0
+          }
+        ],
+        "outputs": [
+          {
+            "value_sats": 60000000,
+            "label": "Prima quota"
+          },
+          {
+            "value_sats": 39900000,
+            "label": "Seconda quota"
+          }
+        ],
+        "label": "Divisione"
+      },
+      {
+        "txid": "payment",
+        "inputs": [
+          {
+            "txid": "split",
+            "vout": 0
+          }
+        ],
+        "outputs": [
+          {
+            "value_sats": 20000000,
+            "label": "Nuovo destinatario"
+          },
+          {
+            "value_sats": 39950000,
+            "label": "Resto"
+          }
+        ],
+        "label": "Secondo trasferimento"
+      }
+    ],
+    "cases": [
+      {
+        "case_id": "DEMO-001",
+        "status": "pending",
+        "seeds": [
+          {
+            "txid": "origin",
+            "vout": 0
+          }
+        ],
+        "evidence": [
+          {
+            "reference": "urn:satotag:synthetic:DEMO-001",
+            "description": "Scenario inventato per il test. Nessun furto o indirizzo reale.",
+            "sha256": "02c0f39677be8eaddc6f0fe1cfc758f147e641fddcc2fe11e8166257c62f59ba"
+          }
+        ],
+        "note": "Attestazione simulata, non verificata da un\u2019autorit\u00e0."
+      }
+    ]
+  },
+  "events": [
+    {
+      "payload": {
+        "version": 2,
+        "registry_id": "DEMO-NOT-AUTHORITY",
+        "policy_hash": "e0b2b5ff01f2effc71c13b140b566f4eced5e4b87c9caa0586648c7ab50edab2",
+        "dataset_hash": "ed5042c2ec8a4190dd5208c2eff7f1d5167467c41fccd8f37145db66a8e418da",
+        "seq": 1,
+        "previous": "0000000000000000000000000000000000000000000000000000000000000000",
+        "timestamp": "2026-11-01T12:01:00Z",
+        "action": "submit",
+        "case_id": "DEMO-001",
+        "evidence_hash": "440941fd5d42f950fc94599f932a87c7510167f2a20d497d53a81f6f0cca08d7",
+        "reason": "Synthetic submit; no real claim"
+      },
+      "signatures": [
+        {
+          "key_id": "reviewer-c",
+          "signature": "f57a1bb60ce36d32e3025d3e0b40678dcf601f677bcc8978aab5b6173b3efcb38a2e70c3d62feaa5e37f7173f611274c48ebb2f573ff854260dc96816e4b830e"
+        }
+      ]
+    },
+    {
+      "payload": {
+        "version": 2,
+        "registry_id": "DEMO-NOT-AUTHORITY",
+        "policy_hash": "e0b2b5ff01f2effc71c13b140b566f4eced5e4b87c9caa0586648c7ab50edab2",
+        "dataset_hash": "ed5042c2ec8a4190dd5208c2eff7f1d5167467c41fccd8f37145db66a8e418da",
+        "seq": 2,
+        "previous": "ec64cdaf6fa4eff9d413429366683049b0778b9cc5a5530954b69a283f8d0d5e",
+        "timestamp": "2026-11-01T12:02:00Z",
+        "action": "accept",
+        "case_id": "DEMO-001",
+        "evidence_hash": "440941fd5d42f950fc94599f932a87c7510167f2a20d497d53a81f6f0cca08d7",
+        "reason": "Synthetic accept; no real claim"
+      },
+      "signatures": [
+        {
+          "key_id": "reviewer-a",
+          "signature": "74570d0b26f52d33df29c3692c2fe8537aa6dc2bd7200b8ed14d07211f7d255215f1f4b662f5dae674cf602f0baadaf630c7dde299608c991d0a96625c5d9d09"
+        },
+        {
+          "key_id": "reviewer-b",
+          "signature": "e3cb423b291113eb2fa1621ea77a157f1b28e9c7de3e2dcecef293418611085b8c3ee09a32c433edf6b1bc062da063eb14d8e8a7f9a9cfb15754e3c3c5c6800e"
+        }
+      ]
+    },
+    {
+      "payload": {
+        "version": 2,
+        "registry_id": "DEMO-NOT-AUTHORITY",
+        "policy_hash": "e0b2b5ff01f2effc71c13b140b566f4eced5e4b87c9caa0586648c7ab50edab2",
+        "dataset_hash": "ed5042c2ec8a4190dd5208c2eff7f1d5167467c41fccd8f37145db66a8e418da",
+        "seq": 3,
+        "previous": "26bd25f23ac5beedc92f64fd891af5f277365ba27c8d2d8bc9a862c608479427",
+        "timestamp": "2026-11-01T12:03:00Z",
+        "action": "contest",
+        "case_id": "DEMO-001",
+        "evidence_hash": "440941fd5d42f950fc94599f932a87c7510167f2a20d497d53a81f6f0cca08d7",
+        "reason": "Synthetic contest; no real claim"
+      },
+      "signatures": [
+        {
+          "key_id": "reviewer-c",
+          "signature": "dbdc18898df2284868fd4d4d8fe8f033c8c19e4d083177536509c249bf68f2a7a5606e39d34034feb5104adc2e0cfd4e36dc9cfac8468f97505b57724b908602"
+        }
+      ]
+    },
+    {
+      "payload": {
+        "version": 2,
+        "registry_id": "DEMO-NOT-AUTHORITY",
+        "policy_hash": "e0b2b5ff01f2effc71c13b140b566f4eced5e4b87c9caa0586648c7ab50edab2",
+        "dataset_hash": "ed5042c2ec8a4190dd5208c2eff7f1d5167467c41fccd8f37145db66a8e418da",
+        "seq": 4,
+        "previous": "bc9902eb7c5f37d94fe805cef14b6806af43c30a30016d0861e59791128fd07e",
+        "timestamp": "2026-11-01T12:04:00Z",
+        "action": "revoke",
+        "case_id": "DEMO-001",
+        "evidence_hash": "440941fd5d42f950fc94599f932a87c7510167f2a20d497d53a81f6f0cca08d7",
+        "reason": "Synthetic revoke; no real claim"
+      },
+      "signatures": [
+        {
+          "key_id": "reviewer-a",
+          "signature": "42ef6a11ee46bcf49d6939bef24bb35a3e4a02b59be77bd137a6d0594b614378705a0d9367e5516d655c6618345235d68305be9107f62285bd72da0ed84c490c"
+        },
+        {
+          "key_id": "reviewer-b",
+          "signature": "ea7429548ecb19a66558f24da7b88445e011c5e28fa9453abf224376992e917541a2dc4e429b05d904be2c86d4e3f20c01acd99aa43c4b7cedf2f9f342774c09"
+        }
+      ]
+    }
+  ]
+}

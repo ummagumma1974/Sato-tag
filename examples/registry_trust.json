@@ -1,0 +1,12 @@
+{
+  "registry_id": "DEMO-NOT-AUTHORITY",
+  "quorum": 2,
+  "reviewers": {
+    "reviewer-a": "b826f3dec1ad01dc76198a9f4058573ab95bceb27d34e5e42bc8845484fdcb54",
+    "reviewer-b": "104cb229bb32feec859f1fe3b919d94bfc8bc84cdee0cc26ed0ea4004006112d",
+    "reviewer-c": "5b53279286e80fe1df644982e2162b3d6c95407f4d98b0fd93b5b0667da6b166"
+  },
+  "checkers": {
+    "checker": "c398ddcd2c506999646f7b914629cf2cf1e52980805ee157e26d63d7931f951d"
+  }
+}

@@ -23,3 +23,11 @@ tamper-proof log, wallet, network client, or transaction signer.
 Do not deploy this as a mainnet enforcement or financial decision service.
 Testing validates internal consistency, not the truth of claims or the economic
 and governance merits of coin marking.
+
+
+
+## Signed governance v0.2
+
+The legacy `analyze` API still consumes asserted case statuses. The new signed
+registry and receipt APIs have a separate trust boundary and adversarial tests:
+see [GOVERNANCE.md](GOVERNANCE.md). No claim of unbreakability is made.
