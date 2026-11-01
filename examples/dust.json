@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "network": "simulation",
+  "name": "Una piccola somma non contamina tutto",
+  "description": "Mille satoshi marcati si uniscono a un BTC. La presenza resta visibile, ma la quota attribuita rimane piccola.",
+  "transactions": [
+    {
+      "txid": "origin",
+      "inputs": [],
+      "outputs": [
+        {
+          "value_sats": 1000,
+          "label": "Piccola somma marcata"
+        },
+        {
+          "value_sats": 100000000,
+          "label": "Un BTC separato"
+        }
+      ],
+      "label": "Origine simulata"
+    },
+    {
+      "txid": "merge",
+      "inputs": [
+        {
+          "txid": "origin",
+          "vout": 0
+        },
+        {
+          "txid": "origin",
+          "vout": 1
+        }
+      ],
+      "outputs": [
+        {
+          "value_sats": 100000000,
+          "label": "Fondi riuniti"
+        }
+      ],
+      "label": "Unione"
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "DEMO-001",
+      "status": "accepted",
+      "seeds": [
+        {
+          "txid": "origin",
+          "vout": 0
+        }
+      ],
+      "evidence": [
+        {
+          "reference": "urn:satotag:synthetic:DEMO-001",
+          "description": "Scenario inventato per il test. Nessun furto o indirizzo reale."
+        }
+      ],
+      "note": "Attestazione simulata, non verificata da un’autorità."
+    }
+  ]
+}
