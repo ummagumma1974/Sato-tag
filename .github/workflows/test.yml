@@ -21,3 +21,4 @@ jobs:
       - run: python tools/build_demo.py --check
       - name: Verify key authority fixture
         run: python -m tools.keyring_demo --check
+      - run: python -m tools.evidence_demo --check

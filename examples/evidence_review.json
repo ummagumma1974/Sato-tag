@@ -1,0 +1,422 @@
+{
+  "notice": "PUBLIC TEST KEYS. FICTIONAL EVIDENCE AND IDENTITIES. No human investigation has taken place.",
+  "fixture": {
+    "ledger": {
+      "schema_version": 1,
+      "network": "simulation",
+      "name": "The mark follows each transfer",
+      "description": "One marked BTC is split and transferred again. Fees leave the modelled perimeter.",
+      "transactions": [
+        {
+          "txid": "origin",
+          "inputs": [],
+          "outputs": [
+            {
+              "value_sats": 100000000,
+              "label": "Marked funds"
+            },
+            {
+              "value_sats": 100000000,
+              "label": "Separate funds"
+            }
+          ],
+          "label": "Synthetic origin"
+        },
+        {
+          "txid": "split",
+          "inputs": [
+            {
+              "txid": "origin",
+              "vout": 0
+            }
+          ],
+          "outputs": [
+            {
+              "value_sats": 60000000,
+              "label": "First share"
+            },
+            {
+              "value_sats": 39900000,
+              "label": "Second share"
+            }
+          ],
+          "label": "Split"
+        },
+        {
+          "txid": "payment",
+          "inputs": [
+            {
+              "txid": "split",
+              "vout": 0
+            }
+          ],
+          "outputs": [
+            {
+              "value_sats": 20000000,
+              "label": "New recipient"
+            },
+            {
+              "value_sats": 39950000,
+              "label": "Change"
+            }
+          ],
+          "label": "Second transfer"
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "DEMO-001",
+          "status": "pending",
+          "seeds": [
+            {
+              "txid": "origin",
+              "vout": 0
+            }
+          ],
+          "evidence": [
+            {
+              "reference": "urn:satotag:synthetic:DEMO-001",
+              "description": "Invented test scenario. No real theft or address.",
+              "sha256": "02c0f39677be8eaddc6f0fe1cfc758f147e641fddcc2fe11e8166257c62f59ba"
+            }
+          ],
+          "note": "Synthetic attestation, not verified by an authority."
+        }
+      ]
+    },
+    "events": [
+      {
+        "payload": {
+          "version": 2,
+          "registry_id": "DEMO-NOT-AUTHORITY",
+          "policy_hash": "62940ef96152d3701e6ffbf85475a117ff4ff6d94d2b44effafe74534975f2e3",
+          "dataset_hash": "e3efd7ae72d86d0a960c775e60764a4d0ee77dd82366849b82e61e88d6f5d070",
+          "seq": 1,
+          "previous": "0000000000000000000000000000000000000000000000000000000000000000",
+          "timestamp": "2026-11-01T12:01:00Z",
+          "action": "submit",
+          "case_id": "DEMO-001",
+          "evidence_hash": "5fdbf7088c1f28adc79d1a9bf0e40c0eaf4671686e293ed2b512174603f277e4",
+          "reason": "Synthetic submit; no real claim"
+        },
+        "signatures": [
+          {
+            "key_id": "reviewer-c",
+            "signature": "f06f3cab7e72b4c2e30f163b01ca474074a9121802c3a3fc5f1ce66b41c28ecb9521cb4f24e5b20b3375b7a9a2131683e34fe4d58b067a81d92a515508d52d01"
+          }
+        ]
+      },
+      {
+        "payload": {
+          "version": 2,
+          "registry_id": "DEMO-NOT-AUTHORITY",
+          "policy_hash": "62940ef96152d3701e6ffbf85475a117ff4ff6d94d2b44effafe74534975f2e3",
+          "dataset_hash": "e3efd7ae72d86d0a960c775e60764a4d0ee77dd82366849b82e61e88d6f5d070",
+          "seq": 2,
+          "previous": "1b75be07ffa0ac495e4b7eafb3499a0d8bd4b9bee3d7f0ee9849a6f92e601517",
+          "timestamp": "2026-11-01T12:02:00Z",
+          "action": "accept",
+          "case_id": "DEMO-001",
+          "evidence_hash": "5fdbf7088c1f28adc79d1a9bf0e40c0eaf4671686e293ed2b512174603f277e4",
+          "reason": "Synthetic accept; no real claim"
+        },
+        "signatures": [
+          {
+            "key_id": "reviewer-a",
+            "signature": "704d2d0d4af560d3ee1d751c1a8c00bb327651ea90fb2df7acad855d5ab2511335519da5c3ebec4d2ef24e12fda366f5c29c3c9495e2a7cf1d698c72f3fb350d"
+          },
+          {
+            "key_id": "reviewer-b",
+            "signature": "c75f9fd048a8ce93ebdba734b08493af15573ca256c5cd66ef28f30a90b5a7088dfeaed80ea1ec1d8dec2ce29a113905d9340ffc8150ef96a333d0583cbc4e07"
+          }
+        ]
+      }
+    ],
+    "manifest": {
+      "payload": {
+        "version": 1,
+        "sequence": 1,
+        "previous": "0000000000000000000000000000000000000000000000000000000000000000",
+        "issued_at": "2026-11-01T12:00:00Z",
+        "expires_at": "2026-11-02T12:00:00Z",
+        "trust": {
+          "registry_id": "DEMO-NOT-AUTHORITY",
+          "quorum": 2,
+          "reviewers": {
+            "reviewer-a": "b826f3dec1ad01dc76198a9f4058573ab95bceb27d34e5e42bc8845484fdcb54",
+            "reviewer-b": "104cb229bb32feec859f1fe3b919d94bfc8bc84cdee0cc26ed0ea4004006112d",
+            "reviewer-c": "5b53279286e80fe1df644982e2162b3d6c95407f4d98b0fd93b5b0667da6b166"
+          },
+          "checkers": {
+            "checker": "c398ddcd2c506999646f7b914629cf2cf1e52980805ee157e26d63d7931f951d",
+            "checker-reserve": "2f580fc5f30bf2aedd170ba1748b78499b046dd797f019a628f9daeba6f62bf4"
+          }
+        },
+        "keys": {
+          "reviewer-a": {
+            "not_before": "2026-11-01T12:00:00Z",
+            "not_after": "2026-11-03T12:00:00Z",
+            "revoked": false
+          },
+          "reviewer-b": {
+            "not_before": "2026-11-01T12:00:00Z",
+            "not_after": "2026-11-03T12:00:00Z",
+            "revoked": false
+          },
+          "reviewer-c": {
+            "not_before": "2026-11-01T12:00:00Z",
+            "not_after": "2026-11-03T12:00:00Z",
+            "revoked": false
+          },
+          "checker": {
+            "not_before": "2026-11-01T12:00:00Z",
+            "not_after": "2026-11-03T12:00:00Z",
+            "revoked": false
+          },
+          "checker-reserve": {
+            "not_before": "2026-11-01T12:01:00Z",
+            "not_after": "2026-11-03T12:00:00Z",
+            "revoked": false
+          }
+        }
+      },
+      "signature": "42059ba79040b59b8570ee0a069f730e30eb9697e99411e0e079f0554d79e2e5fd3936cced9001e649308fd27ba61519792cfded0585b3c8fa8b615756bab102"
+    },
+    "root_public_key": "44a3c6a41095fabe116699cfdfa8024dadaa9d9252a919b0d7855a7cb1d3928f",
+    "expected_manifest": "1892d41cf2e9b65a1ae67fe4ad73ec82d1df5da4d690edab7cd4b0b054573749",
+    "now": "2026-11-01T12:02:00Z",
+    "payment": {
+      "request_id": "DEMO-ORDER-001",
+      "inputs": [
+        "split:1"
+      ],
+      "recipient": "synthetic-recipient",
+      "amount_sats": 100000
+    },
+    "checkpoint": "d8f5b45035b28ad518663df6f80c7d0f75a6f7cb57034b84e3bfc79c296cf7a1",
+    "policy": {
+      "version": 1,
+      "registry_id": "DEMO-NOT-AUTHORITY",
+      "quorum": 2,
+      "max_review_age_seconds": 3600,
+      "reviewers": {
+        "reviewer-a": {
+          "person_id": "fictional-person-reviewer-a",
+          "organization_id": "fictional-org-reviewer-a"
+        },
+        "reviewer-b": {
+          "person_id": "fictional-person-reviewer-b",
+          "organization_id": "fictional-org-reviewer-b"
+        },
+        "reviewer-c": {
+          "person_id": "fictional-person-reviewer-c",
+          "organization_id": "fictional-org-reviewer-c"
+        }
+      }
+    },
+    "expected_policy": "9b2b10829b21b88edb8234321287a1627a9b17266432c7ac5ebbda1f927f6ada",
+    "packages": {
+      "d8f5b45035b28ad518663df6f80c7d0f75a6f7cb57034b84e3bfc79c296cf7a1": {
+        "dossier": {
+          "version": 1,
+          "case_id": "DEMO-001",
+          "dataset_hash": "e3efd7ae72d86d0a960c775e60764a4d0ee77dd82366849b82e61e88d6f5d070",
+          "evidence_hash": "5fdbf7088c1f28adc79d1a9bf0e40c0eaf4671686e293ed2b512174603f277e4",
+          "claimant_person_id": "fictional-claimant",
+          "claimant_organization_id": "fictional-claimant-org",
+          "statement": "Invented unauthorized transfer from origin:0; demonstration only.",
+          "artifacts": [
+            {
+              "id": "artifact-0",
+              "sha256": "02c0f39677be8eaddc6f0fe1cfc758f147e641fddcc2fe11e8166257c62f59ba",
+              "source_id": "fictional-source-0",
+              "description": "Synthetic record; not proof of a real event."
+            },
+            {
+              "id": "artifact-1",
+              "sha256": "4ffefcb7773688a2540aafe1e2de94dc9e4784c9e6276c97613a360c65df5026",
+              "source_id": "fictional-source-1",
+              "description": "Synthetic record; not proof of a real event."
+            }
+          ]
+        },
+        "reviews": [
+          {
+            "payload": {
+              "version": 1,
+              "reviewer_id": "reviewer-a",
+              "policy_hash": "9b2b10829b21b88edb8234321287a1627a9b17266432c7ac5ebbda1f927f6ada",
+              "acceptance_hash": "d8f5b45035b28ad518663df6f80c7d0f75a6f7cb57034b84e3bfc79c296cf7a1",
+              "dossier_hash": "3602689f6c09b0fb24b76863e68fe6306e559756a8ad0ef391ad0cefa297cb0b",
+              "reviewed_at": "2026-11-01T12:02:00Z",
+              "conflict_of_interest": false,
+              "decision": "approve",
+              "checks": {
+                "prior_control": {
+                  "outcome": "pass",
+                  "rationale": "Fictional assessment of prior_control; fixture only, no human review performed.",
+                  "artifact_ids": [
+                    "artifact-0",
+                    "artifact-1"
+                  ]
+                },
+                "unauthorized_transfer": {
+                  "outcome": "pass",
+                  "rationale": "Fictional assessment of unauthorized_transfer; fixture only, no human review performed.",
+                  "artifact_ids": [
+                    "artifact-0",
+                    "artifact-1"
+                  ]
+                },
+                "seed_link": {
+                  "outcome": "pass",
+                  "rationale": "Fictional assessment of seed_link; fixture only, no human review performed.",
+                  "artifact_ids": [
+                    "artifact-0",
+                    "artifact-1"
+                  ]
+                },
+                "independent_corroboration": {
+                  "outcome": "pass",
+                  "rationale": "Fictional assessment of independent_corroboration; fixture only, no human review performed.",
+                  "artifact_ids": [
+                    "artifact-0",
+                    "artifact-1"
+                  ]
+                },
+                "alternative_explanations": {
+                  "outcome": "pass",
+                  "rationale": "Fictional assessment of alternative_explanations; fixture only, no human review performed.",
+                  "artifact_ids": [
+                    "artifact-0",
+                    "artifact-1"
+                  ]
+                }
+              }
+            },
+            "signature": "9661539a36e0a3973fa336b287cb318c68b189b9459b3275b50f3b5bb7652d2cccfacfc02ff74d94bcdf112d26234ad31bf7ed924bf7f45d8147d2c08fe2570e"
+          },
+          {
+            "payload": {
+              "version": 1,
+              "reviewer_id": "reviewer-b",
+              "policy_hash": "9b2b10829b21b88edb8234321287a1627a9b17266432c7ac5ebbda1f927f6ada",
+              "acceptance_hash": "d8f5b45035b28ad518663df6f80c7d0f75a6f7cb57034b84e3bfc79c296cf7a1",
+              "dossier_hash": "3602689f6c09b0fb24b76863e68fe6306e559756a8ad0ef391ad0cefa297cb0b",
+              "reviewed_at": "2026-11-01T12:02:00Z",
+              "conflict_of_interest": false,
+              "decision": "approve",
+              "checks": {
+                "prior_control": {
+                  "outcome": "pass",
+                  "rationale": "Fictional assessment of prior_control; fixture only, no human review performed.",
+                  "artifact_ids": [
+                    "artifact-0",
+                    "artifact-1"
+                  ]
+                },
+                "unauthorized_transfer": {
+                  "outcome": "pass",
+                  "rationale": "Fictional assessment of unauthorized_transfer; fixture only, no human review performed.",
+                  "artifact_ids": [
+                    "artifact-0",
+                    "artifact-1"
+                  ]
+                },
+                "seed_link": {
+                  "outcome": "pass",
+                  "rationale": "Fictional assessment of seed_link; fixture only, no human review performed.",
+                  "artifact_ids": [
+                    "artifact-0",
+                    "artifact-1"
+                  ]
+                },
+                "independent_corroboration": {
+                  "outcome": "pass",
+                  "rationale": "Fictional assessment of independent_corroboration; fixture only, no human review performed.",
+                  "artifact_ids": [
+                    "artifact-0",
+                    "artifact-1"
+                  ]
+                },
+                "alternative_explanations": {
+                  "outcome": "pass",
+                  "rationale": "Fictional assessment of alternative_explanations; fixture only, no human review performed.",
+                  "artifact_ids": [
+                    "artifact-0",
+                    "artifact-1"
+                  ]
+                }
+              }
+            },
+            "signature": "f3cb98f59c91b5c14387085983ef796a6547a8c9e81dec84fe5ff82e76ffae732237843bc43c1c369a143da4014d7e28e1121613182864838b1ff2da09bccb01"
+          }
+        ]
+      }
+    },
+    "artifacts": {
+      "02c0f39677be8eaddc6f0fe1cfc758f147e641fddcc2fe11e8166257c62f59ba": "invented demonstration evidence; no real theft",
+      "4ffefcb7773688a2540aafe1e2de94dc9e4784c9e6276c97613a360c65df5026": "Fictional independent incident record. No real claim."
+    }
+  },
+  "result": {
+    "result": "marked",
+    "request_hash": "74916d67d95ef230dce9082f00bb5f463fe3d31095c7120bdaa240b8787e01fd",
+    "snapshot_head": "d8f5b45035b28ad518663df6f80c7d0f75a6f7cb57034b84e3bfc79c296cf7a1",
+    "snapshot_event_count": 2,
+    "dataset_hash": "e3efd7ae72d86d0a960c775e60764a4d0ee77dd82366849b82e61e88d6f5d070",
+    "policy_hash": "62940ef96152d3701e6ffbf85475a117ff4ff6d94d2b44effafe74534975f2e3",
+    "registry_id": "DEMO-NOT-AUTHORITY",
+    "as_of": "2026-11-01T12:02:00Z",
+    "request": {
+      "request_id": "DEMO-ORDER-001",
+      "inputs": [
+        "split:1"
+      ],
+      "recipient": "synthetic-recipient",
+      "amount_sats": 100000
+    },
+    "key_manifest_sha256": "1892d41cf2e9b65a1ae67fe4ad73ec82d1df5da4d690edab7cd4b0b054573749",
+    "key_manifest_sequence": 1,
+    "evidence_policy_sha256": "9b2b10829b21b88edb8234321287a1627a9b17266432c7ac5ebbda1f927f6ada",
+    "evidence_assessments": [
+      {
+        "case_id": "DEMO-001",
+        "acceptance_hash": "d8f5b45035b28ad518663df6f80c7d0f75a6f7cb57034b84e3bfc79c296cf7a1",
+        "dossier_hash": "3602689f6c09b0fb24b76863e68fe6306e559756a8ad0ef391ad0cefa297cb0b",
+        "reviewers": [
+          "reviewer-a",
+          "reviewer-b"
+        ]
+      }
+    ],
+    "evidence_assurance": "Integrity and signed human assessments verified; truth and independence are not established by software."
+  },
+  "scenarios": [
+    {
+      "name": "Complete synthetic dossier",
+      "outcome": "verified",
+      "detail": "Integrity and signed human assessments verified; truth and independence are not established by software."
+    },
+    {
+      "name": "Missing evidence bytes",
+      "outcome": "blocked",
+      "detail": "Missing evidence bytes"
+    },
+    {
+      "name": "Changed evidence bytes",
+      "outcome": "blocked",
+      "detail": "Evidence bytes changed"
+    },
+    {
+      "name": "Only one review",
+      "outcome": "blocked",
+      "detail": "Insufficient evidence reviews"
+    },
+    {
+      "name": "Changed assessment",
+      "outcome": "blocked",
+      "detail": "Invalid evidence review signature"
+    }
+  ]
+}

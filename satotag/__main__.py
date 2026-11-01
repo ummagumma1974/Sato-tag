@@ -36,29 +36,32 @@ def main(argv=None):
     cmd.add_argument("input", type=Path, help="JSON simulation dataset (max 4 MiB)")
     cmd.add_argument("--haircut", default="60", help="Hypothetical discount on exposure, 0..100 (default: 60)")
     cmd.add_argument("--output", type=Path, help="Save JSON; defaults to stdout")
-    for command in ("registry", "verify-receipt", "authorized-screen", "authorized-verify"):
-        descriptions = {"registry": "Low-level registry verification (no key lifecycle checks)",
+    for command in ("registry", "verify-receipt", "authorized-screen", "authorized-verify", "evidence-screen"):
+        descriptions = {"evidence-screen": "Screen with signed evidence assessments and independent reviewer enrollment", "registry": "Low-level registry verification (no key lifecycle checks)",
                         "verify-receipt": "Low-level receipt verification (no key lifecycle checks)",
                         "authorized-screen": "Screen a payment with root-authorized key lifecycles",
                         "authorized-verify": "Verify a receipt with current root-authorized key lifecycles"}
         gov = sub.add_parser(command, help=descriptions[command])
         gov.add_argument("input", type=Path, help="JSON object with ledger and events")
-        if command.startswith("authorized-"):
+        if command.startswith("authorized-") or command == "evidence-screen":
             gov.add_argument("--manifest", type=Path, required=True, help="Root-signed key authorization manifest")
             gov.add_argument("--root-key", required=True, help="Independently pinned Ed25519 root public key")
             gov.add_argument("--manifest-checkpoint", required=True, help="Independently obtained latest manifest hash")
         else:
             gov.add_argument("--trust", type=Path, required=True, help="Low-level verifier-chosen keys; no lifecycle enforcement")
+        if command == "evidence-screen":
+            gov.add_argument("--evidence", type=Path, required=True, help="Policy, packages and UTF-8 artifact texts")
+            gov.add_argument("--evidence-policy-checkpoint", required=True, help="Independently pinned evidence policy hash")
         gov.add_argument("--as-of", required=True, help="UTC check/acceptance time")
         gov.add_argument("--checkpoint", required=True, help="Independently obtained latest registry head hash")
         gov.add_argument("--output", type=Path)
         if command in ("verify-receipt", "authorized-verify"):
             gov.add_argument("--receipt", type=Path, required=True)
-        if command in ("verify-receipt", "authorized-verify", "authorized-screen"):
+        if command in ("verify-receipt", "authorized-verify", "authorized-screen", "evidence-screen"):
             gov.add_argument("--payment", type=Path, required=True)
     args = parser.parse_args(argv)
     try:
-        inputs = [args.input] + [getattr(args, k) for k in ("trust", "receipt", "payment", "manifest") if hasattr(args, k)]
+        inputs = [args.input] + [getattr(args, k) for k in ("trust", "receipt", "payment", "manifest", "evidence") if hasattr(args, k)]
         if args.output and args.output.resolve() in [p.resolve() for p in inputs]:
             raise ValidationError("Output must not overwrite the input dataset")
         data = _load(args.input)
@@ -71,11 +74,23 @@ def main(argv=None):
                 raise ValidationError('Install signature support: python -m pip install -e ".[governance]"') from None
             if not isinstance(data, dict) or set(data) != {"ledger", "events"}:
                 raise ValidationError("Registry bundle must contain exactly ledger and events")
-            if args.command.startswith("authorized-"):
+            if args.command.startswith("authorized-") or args.command == "evidence-screen":
                 from .keyring import authorized_screen, authorized_verify
                 common = (data["ledger"], data["events"], _load(args.manifest), args.root_key,
                           args.manifest_checkpoint, args.as_of)
-                if args.command == "authorized-screen":
+                if args.command == "evidence-screen":
+                    from .evidence import evidence_screen
+                    from .engine import _object, _require
+                    evidence = _load(args.evidence)
+                    _object(evidence, {"policy", "packages", "artifacts"}, set(), "evidence input")
+                    _require(isinstance(evidence["artifacts"], dict) and
+                             all(isinstance(v, str) for v in evidence["artifacts"].values()),
+                             "CLI artifacts must contain UTF-8 text")
+                    artifacts = {h: v.encode("utf-8") for h, v in evidence["artifacts"].items()}
+                    report = evidence_screen(*common, _load(args.payment), args.checkpoint,
+                                             evidence["policy"], args.evidence_policy_checkpoint,
+                                             evidence["packages"], artifacts)
+                elif args.command == "authorized-screen":
                     report = authorized_screen(*common, _load(args.payment), args.checkpoint)
                 else:
                     report = authorized_verify(*common, _load(args.receipt), _load(args.payment), args.checkpoint)

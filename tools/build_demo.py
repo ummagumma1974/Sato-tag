@@ -7,6 +7,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from satotag import analyze  # noqa: E402
+from tools.evidence_demo import build_examples as evidence_examples
 from tools.governance_demo import build_examples  # noqa: E402
 
 
@@ -16,6 +17,8 @@ def build():
     payload = json.dumps(reports, ensure_ascii=True, separators=(",", ":")).replace("<", "\\u003c")
     template = (ROOT / "tools" / "demo_template.html").read_text()
     governance = json.dumps(build_examples(), ensure_ascii=True, separators=(",", ":")).replace("<", "\\u003c")
+    evidence = json.dumps(evidence_examples()["scenarios"], ensure_ascii=True, separators=(",", ":")).replace("<", "\\u003c")
+    template = template.replace("__SATOTAG_EVIDENCE__", evidence)
     return template.replace("__SATOTAG_REPORTS__", payload).replace("__SATOTAG_GOVERNANCE__", governance)
 
 

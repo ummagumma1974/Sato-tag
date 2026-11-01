@@ -135,3 +135,7 @@ The optional [v0.2.1 key authority layer](KEY_AUTHORITY.md) now implements signe
 key lifetimes, revocations and pre-enrolled reserve replacement. Use its
 authorization-enforcing entry points; the low-level APIs described above remain
 available for research and legacy fixtures.
+
+## Evidence-review extension
+
+The separate [`evidence-screen` path](EVIDENCE_REVIEW.md) enforces dossier integrity and signed structured assessments for every acceptance. It adds verifier-pinned reviewer identity/organization enrollment and conflict checks. This does not make enrollment facts or allegations true automatically. Existing registry and key-lifecycle APIs retain their original, lower-level assurances; do not use them alone to claim evidence-review compliance.
