@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "network": "simulation",
+  "name": "Unione di fondi",
+  "description": "Un BTC marcato si unisce a quattro BTC non marcati nel dataset. Il modello attribuisce proporzionalmente l’esposizione, non una colpa.",
+  "transactions": [
+    {
+      "txid": "origin",
+      "inputs": [],
+      "outputs": [
+        {
+          "value_sats": 100000000,
+          "label": "Somma marcata"
+        },
+        {
+          "value_sats": 400000000,
+          "label": "Altra somma"
+        }
+      ],
+      "label": "Origine simulata"
+    },
+    {
+      "txid": "merge",
+      "inputs": [
+        {
+          "txid": "origin",
+          "vout": 0
+        },
+        {
+          "txid": "origin",
+          "vout": 1
+        }
+      ],
+      "outputs": [
+        {
+          "value_sats": 250000000,
+          "label": "Destinatario A"
+        },
+        {
+          "value_sats": 249900000,
+          "label": "Destinatario B"
+        }
+      ],
+      "label": "Unione e nuova divisione"
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "DEMO-001",
+      "status": "accepted",
+      "seeds": [
+        {
+          "txid": "origin",
+          "vout": 0
+        }
+      ],
+      "evidence": [
+        {
+          "reference": "urn:satotag:synthetic:DEMO-001",
+          "description": "Scenario inventato per il test. Nessun furto o indirizzo reale."
+        }
+      ],
+      "note": "Attestazione simulata, non verificata da un’autorità."
+    }
+  ]
+}
