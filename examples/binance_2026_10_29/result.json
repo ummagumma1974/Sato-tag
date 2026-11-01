@@ -1,0 +1,39 @@
+{
+  "scope": "One real parent output and its immediate spend, replayed conditionally. Not the entire incident.",
+  "captured_at": [
+    "2026-11-01T20:59:42.662930+00:00",
+    "2026-11-01T20:59:42.560976+00:00"
+  ],
+  "block_height": 973732,
+  "seed_outpoint": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba:0",
+  "seed_sats": 140950000000,
+  "outputs": [
+    {
+      "outpoint": "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6:0",
+      "sats": 40949999500,
+      "address": "bc1q96qkjsye5qruf9yksqdqg09lzdmur7wau2ga6u",
+      "conditional_exposure_percent": 100
+    },
+    {
+      "outpoint": "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6:1",
+      "sats": 100000000000,
+      "address": "bc1qxrxujwxfnvz040jw76d26zhjdg5jura7hs968s",
+      "conditional_exposure_percent": 100
+    }
+  ],
+  "fee_sats": 500,
+  "parent_change_mark": "none",
+  "controls": {
+    "pending": "No exposure propagated",
+    "revoked": "No exposure propagated"
+  },
+  "result": "PASS: linked outpoints, exact amounts, conditional propagation and conservation match.",
+  "evidence_gate": "NOT APPROVED: no independently enrolled human reviews of this real case were supplied.",
+  "limits": [
+    "Explorer responses are trusted inputs here; no raw transaction hashing, Merkle proof or full-node consensus verification.",
+    "Source hashes preserve captured bytes, not their truth or independent authenticity.",
+    "Parent inputs and later spends are outside scope. Engine unspent means terminal in this graph, not unspent on Bitcoin today.",
+    "No tag was written to Bitcoin or a production registry. No funds moved, frozen or repriced.",
+    "The low-level accepted seed is a what-if assumption; the evidence-review gate has not been satisfied."
+  ]
+}

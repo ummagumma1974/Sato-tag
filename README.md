@@ -73,3 +73,11 @@ checkpoint. Legacy APIs do not enforce key lifecycles.
 [Investigation procedure, limitations and runnable example](docs/EVIDENCE_REVIEW.md) · [Synthetic dossier](examples/evidence_review.json) · [Demo evidence checks](https://ummagumma1974.github.io/Sato-tag/#evidence-review)
 
 This authenticates structured assessments, not the truth of an allegation. Real investigators must verify records and independence. Existing low-level screening and receipt APIs do not enforce the evidence gate. No real theft investigation or Bitcoin spending restriction is implemented.
+
+## First observed Bitcoin replay
+
+[Read the reproducible transaction test](docs/OBSERVED_BITCOIN_TEST.md): a captured 1,409.5 BTC input splits into 1,000 BTC, 409.499995 BTC and a 500-satoshi fee. Conditional propagation, sibling isolation and pending/revoked controls pass. This is one explorer-derived replay, not an approved real-world claim or a full incident trace.
+
+```sh
+python -m tools.replay_binance_sample --check
+```

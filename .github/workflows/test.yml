@@ -22,3 +22,4 @@ jobs:
       - name: Verify key authority fixture
         run: python -m tools.keyring_demo --check
       - run: python -m tools.evidence_demo --check
+      - run: python -m tools.replay_binance_sample --check

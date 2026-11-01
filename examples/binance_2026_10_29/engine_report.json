@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "engine_version": "0.2.0",
+  "network": "simulation",
+  "name": "Observed Bitcoin split replay \u2014 conditional seed",
+  "description": "Explorer-derived values in a bounded simulation. Not a verified theft claim or current UTXO snapshot.",
+  "dataset_sha256": "5652e0c1f639352c06e16b690fe4f685df63eade01c46592044edc296c5e5807",
+  "attribution_model": "proportional",
+  "haircut_percent": "0",
+  "limitations": [
+    "Synthetic ledger only; does not modify Bitcoin or freeze assets.",
+    "Accepted claims and evidence are supplied by the caller, not independently verified.",
+    "Exposure is a proportional accounting model, not proof of individual satoshi provenance.",
+    "No mark does not certify lawful origin; scope is limited to the supplied complete graph.",
+    "Fees leave the model; miner payouts, cross-chain swaps and privacy boundaries are not traced.",
+    "Quotes are hypothetical buyer policies, not prices, spendable balances or enforced penalties."
+  ],
+  "cases": [
+    {
+      "case_id": "BINANCE-2026-SAMPLE-WHATIF",
+      "status": "accepted",
+      "seeds": [
+        {
+          "txid": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba",
+          "vout": 0
+        }
+      ],
+      "evidence": [
+        {
+          "reference": "https://www.fbi.gov/investigate/cyber/alerts/2026/north-korea-responsible-for-6-billion-binance-attack",
+          "description": "External address attribution; approval is hypothetical for this replay only."
+        }
+      ]
+    }
+  ],
+  "transactions": [
+    {
+      "txid": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba",
+      "label": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba",
+      "inputs": [],
+      "outputs": [
+        "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba:0",
+        "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba:1"
+      ]
+    },
+    {
+      "txid": "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6",
+      "label": "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6",
+      "inputs": [
+        "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba:0"
+      ],
+      "outputs": [
+        "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6:0",
+        "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6:1"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "outpoint": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba:0",
+      "txid": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba",
+      "vout": 0,
+      "label": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba:0",
+      "value_sats": 140950000000,
+      "spent_by": "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6",
+      "mark": "seed",
+      "case_ids": [
+        "BINANCE-2026-SAMPLE-WHATIF"
+      ],
+      "exposure_sats": {
+        "numerator": "140950000000",
+        "denominator": "1"
+      },
+      "exposure_percent": 100.0,
+      "exposure_by_case": {
+        "BINANCE-2026-SAMPLE-WHATIF": {
+          "numerator": "140950000000",
+          "denominator": "1"
+        }
+      },
+      "hypothetical_discount_sats": {
+        "numerator": "0",
+        "denominator": "1"
+      },
+      "hypothetical_quote_sats_equivalent": {
+        "numerator": "140950000000",
+        "denominator": "1"
+      }
+    },
+    {
+      "outpoint": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba:1",
+      "txid": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba",
+      "vout": 1,
+      "label": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba:1",
+      "value_sats": 362320176,
+      "spent_by": null,
+      "mark": "none",
+      "case_ids": [],
+      "exposure_sats": {
+        "numerator": "0",
+        "denominator": "1"
+      },
+      "exposure_percent": 0.0,
+      "exposure_by_case": {},
+      "hypothetical_discount_sats": {
+        "numerator": "0",
+        "denominator": "1"
+      },
+      "hypothetical_quote_sats_equivalent": {
+        "numerator": "362320176",
+        "denominator": "1"
+      }
+    },
+    {
+      "outpoint": "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6:0",
+      "txid": "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6",
+      "vout": 0,
+      "label": "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6:0",
+      "value_sats": 40949999500,
+      "spent_by": null,
+      "mark": "inherited",
+      "case_ids": [
+        "BINANCE-2026-SAMPLE-WHATIF"
+      ],
+      "exposure_sats": {
+        "numerator": "40949999500",
+        "denominator": "1"
+      },
+      "exposure_percent": 100.0,
+      "exposure_by_case": {
+        "BINANCE-2026-SAMPLE-WHATIF": {
+          "numerator": "40949999500",
+          "denominator": "1"
+        }
+      },
+      "hypothetical_discount_sats": {
+        "numerator": "0",
+        "denominator": "1"
+      },
+      "hypothetical_quote_sats_equivalent": {
+        "numerator": "40949999500",
+        "denominator": "1"
+      }
+    },
+    {
+      "outpoint": "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6:1",
+      "txid": "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6",
+      "vout": 1,
+      "label": "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6:1",
+      "value_sats": 100000000000,
+      "spent_by": null,
+      "mark": "inherited",
+      "case_ids": [
+        "BINANCE-2026-SAMPLE-WHATIF"
+      ],
+      "exposure_sats": {
+        "numerator": "100000000000",
+        "denominator": "1"
+      },
+      "exposure_percent": 100.0,
+      "exposure_by_case": {
+        "BINANCE-2026-SAMPLE-WHATIF": {
+          "numerator": "100000000000",
+          "denominator": "1"
+        }
+      },
+      "hypothetical_discount_sats": {
+        "numerator": "0",
+        "denominator": "1"
+      },
+      "hypothetical_quote_sats_equivalent": {
+        "numerator": "100000000000",
+        "denominator": "1"
+      }
+    }
+  ],
+  "fees": [
+    {
+      "txid": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba",
+      "value_sats": 0,
+      "exposure_sats": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "txid": "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6",
+      "value_sats": 500,
+      "exposure_sats": {
+        "numerator": "500",
+        "denominator": "1"
+      }
+    }
+  ],
+  "totals": {
+    "origin_sats": 141312320176,
+    "unspent_sats": 141312319676,
+    "fees_sats": 500,
+    "seeded_sats": {
+      "numerator": "140950000000",
+      "denominator": "1"
+    },
+    "unspent_exposure_sats": {
+      "numerator": "140949999500",
+      "denominator": "1"
+    },
+    "fee_exposure_sats": {
+      "numerator": "500",
+      "denominator": "1"
+    },
+    "hypothetical_quote_sats_equivalent": {
+      "numerator": "141312319676",
+      "denominator": "1"
+    },
+    "marked_unspent_outputs": 2,
+    "value_conserved": true,
+    "exposure_conserved_including_fees": true
+  }
+}

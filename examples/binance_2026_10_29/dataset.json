@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "network": "simulation",
+  "name": "Observed Bitcoin split replay \u2014 conditional seed",
+  "description": "Explorer-derived values in a bounded simulation. Not a verified theft claim or current UTXO snapshot.",
+  "transactions": [
+    {
+      "txid": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba",
+      "inputs": [],
+      "outputs": [
+        {
+          "value_sats": 140950000000
+        },
+        {
+          "value_sats": 362320176
+        }
+      ]
+    },
+    {
+      "txid": "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6",
+      "inputs": [
+        {
+          "txid": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba",
+          "vout": 0
+        }
+      ],
+      "outputs": [
+        {
+          "value_sats": 40949999500
+        },
+        {
+          "value_sats": 100000000000
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "BINANCE-2026-SAMPLE-WHATIF",
+      "status": "accepted",
+      "seeds": [
+        {
+          "txid": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba",
+          "vout": 0
+        }
+      ],
+      "evidence": [
+        {
+          "reference": "https://www.fbi.gov/investigate/cyber/alerts/2026/north-korea-responsible-for-6-billion-binance-attack",
+          "description": "External address attribution; approval is hypothetical for this replay only."
+        }
+      ]
+    }
+  ]
+}

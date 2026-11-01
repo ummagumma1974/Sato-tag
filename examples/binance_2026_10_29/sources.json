@@ -1,0 +1,22 @@
+{
+  "records": [
+    {
+      "url": "https://mempool.space/api/tx/5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba",
+      "file": "5de2320e6c53e925d135e887096b06145ef35ad04ed0e59b09fc205d7c47f0ba.json",
+      "sha256": "a24cf9505b1708b7c3234f6db582713f175bd43332b89832ba830b48076758d0",
+      "retrieved_at": "2026-11-01T20:59:42.662930+00:00",
+      "confirmed": true,
+      "block_height": 973732
+    },
+    {
+      "url": "https://mempool.space/api/tx/07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6",
+      "file": "07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6.json",
+      "sha256": "80ccc46968582435565a9dd036a1b89436c8d584f6c380a0b70ee2839b10fcae",
+      "retrieved_at": "2026-11-01T20:59:42.560976+00:00",
+      "confirmed": true,
+      "block_height": 973732
+    }
+  ],
+  "attribution_source": "https://www.fbi.gov/investigate/cyber/alerts/2026/north-korea-responsible-for-6-billion-binance-attack",
+  "attribution_scope": "FBI lists the 1000 BTC recipient address. The seed-to-split link is independently read from the explorer API. No theft adjudication by SatoTag."
+}
