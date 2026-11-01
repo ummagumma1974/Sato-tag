@@ -40,3 +40,15 @@ Perché voglio capire se questa idea può funzionare senza dare a qualcuno il po
 Il codice serve a questo: mettere l’idea sul tavolo e provare a romperla.
 
 Vediamo dove regge.
+
+---
+
+## Try it / Provalo
+
+- [Usage guide / Guida e istruzioni](GUIDE.md)
+- [Demo HTML — download and open in a browser / scarica e apri nel browser](docs/index.html)
+- [Python source / Codice Python](satotag/engine.py)
+
+The demo uses fictional data and works offline. GitHub displays HTML source; download the project and open `docs/index.html` in a browser.
+
+La demo usa dati inventati e funziona offline. GitHub mostra il codice HTML: scarica il progetto e apri `docs/index.html` in un browser.
