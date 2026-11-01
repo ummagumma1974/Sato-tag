@@ -38,6 +38,16 @@
 </section>
 
 <details><summary>Lab rules and limitations</summary><p>Exposure is allocated proportionally to output values using exact fractions in Python. This is an accounting convention; it does not identify individual stolen satoshis. Small exposures remain visible without treating the whole balance as stolen. Fees are accounted for separately and are not traced through miner payments.</p><p>The registry retains revoked cases while recalculation removes their active effect. The four initial scenarios use input assertions. The signed registry checks signatures and quorum with demonstration keys; it does not establish evidence truth, guarantee a complete or immutable registry, or control Bitcoin. Cross-asset conversions, unknown paths and data outside the perimeter require separate analysis. “No mark” is not proof of lawful provenance.</p><p>The discount is a voluntary simulation that external intermediaries may ignore. Mandatory marks would require new protocol rules and their adoption. This signed registry is only an offline governance experiment.</p></details>
+<section id="evidence-review" aria-labelledby="evidence-heading" class="box">
+<p class="eyebrow">Evidence review / experimental gate</p>
+<h2 id="evidence-heading">A signature is not enough.</h2>
+<p>The new <code>evidence-screen</code> path requires the exact evidence files, a dossier bound to the case, and signed assessments from separately enrolled people and organizations. Missing or invalid evidence stops screening.</p>
+<ol><li>Preserve evidence and its hashes.</li><li>Check prior control, unauthorized transfer and the exact starting outputs.</li><li>Corroborate with separate sources; examine alternative explanations.</li><li>Record conflicts, reasons and citations; obtain independent assessments.</li><li>Keep challenges and revocation available.</li></ol>
+<p><strong>Reproducible Python verification results:</strong> fictional records and public test keys. No real investigation has been performed. This page displays build-time results; it does not verify uploaded evidence in your browser.</p>
+<div class="table-wrap"><table><thead><tr><th>Scenario</th><th>Gate result</th><th>Reason</th></tr></thead><tbody id="evidence-results"></tbody></table></div>
+<p>The software verifies integrity and signed statements. People must establish whether the records are authentic, whether a theft occurred, and whether reviewers are truly independent. Nothing here freezes Bitcoin or determines market value. Legacy screening APIs do not enforce this evidence gate.</p>
+<p><a href="https://github.com/ummagumma1974/Sato-tag/blob/main/docs/EVIDENCE_REVIEW.md">Read the investigation procedure and run the checks →</a></p>
+</section>
 <footer><span>SATOTAG / OPEN RESEARCH / MIT</span><span>No wallet keys. No tracking. Runs offline.</span></footer></main><noscript>Enable JavaScript to explore the scenarios. The Python code also works without this demo.</noscript>
 <script id="governance-data" type="application/json">__SATOTAG_GOVERNANCE__</script>
 <script id="reports" type="application/json">__SATOTAG_REPORTS__</script>
@@ -81,6 +91,8 @@ function renderGovernance(i){const c=governance.cards[i],h=c.state.history.at(-1
 document.querySelectorAll('[data-governance]').forEach(b=>b.addEventListener('click',()=>renderGovernance(Number(b.dataset.governance))));
 $('gov-download').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(governance,null,2)+'\n'],{type:'application/json'}));const a=e('a');a.href=url;a.download='satotag-public-demo-signatures.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 renderGovernance(0);
+const evidenceScenarios=__SATOTAG_EVIDENCE__;
+for(const scenario of evidenceScenarios){const row=document.createElement('tr');for(const key of ['name','outcome','detail']){const cell=document.createElement('td');cell.textContent=scenario[key];cell.style.whiteSpace='normal';row.appendChild(cell);}document.getElementById('evidence-results').appendChild(row);}
 
 </script></body></html>
 

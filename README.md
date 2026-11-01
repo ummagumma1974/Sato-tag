@@ -65,3 +65,11 @@ pinned root public key and current manifest hash, in addition to the registry
 checkpoint. Legacy APIs do not enforce key lifecycles.
 
 [Protocol, integration and reproducible example](docs/KEY_AUTHORITY.md).
+
+## Evidence review — executable experimental gate
+
+`evidence-screen` now checks evidence bytes, a case-bound dossier, five mandatory signed assessments, conflicts and separately enrolled reviewer identities/organizations before returning a payment-screening result. Missing evidence or an unresolved assessment stops this path. Each acceptance needs its own reviews.
+
+[Investigation procedure, limitations and runnable example](docs/EVIDENCE_REVIEW.md) · [Synthetic dossier](examples/evidence_review.json) · [Demo evidence checks](https://ummagumma1974.github.io/Sato-tag/#evidence-review)
+
+This authenticates structured assessments, not the truth of an allegation. Real investigators must verify records and independence. Existing low-level screening and receipt APIs do not enforce the evidence gate. No real theft investigation or Bitcoin spending restriction is implemented.
