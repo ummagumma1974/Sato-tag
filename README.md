@@ -45,10 +45,12 @@ Vediamo dove regge.
 
 ## Try it / Provalo
 
+**[Open the live demo / Apri la demo interattiva](https://ummagumma1974.github.io/Sato-tag/)**
+
+Works in your browser, including on a phone. No downloads or wallet connection required. All scenarios use fictional data.
+
+Funziona nel browser, anche dal telefono. Nessun download o collegamento a wallet. Tutti gli scenari usano dati inventati.
+
 - [Usage guide / Guida e istruzioni](GUIDE.md)
-- [Demo HTML — download and open in a browser / scarica e apri nel browser](docs/index.html)
+- [Downloadable offline demo / Demo offline scaricabile](docs/index.html)
 - [Python source / Codice Python](satotag/engine.py)
-
-The demo uses fictional data and works offline. GitHub displays HTML source; download the project and open `docs/index.html` in a browser.
-
-La demo usa dati inventati e funziona offline. GitHub mostra il codice HTML: scarica il progetto e apri `docs/index.html` in un browser.
