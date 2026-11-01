@@ -1,0 +1,289 @@
+{
+  "replacement_receipt": {
+    "payload": {
+      "result": "no_known_mark",
+      "request_hash": "74916d67d95ef230dce9082f00bb5f463fe3d31095c7120bdaa240b8787e01fd",
+      "snapshot_head": "0000000000000000000000000000000000000000000000000000000000000000",
+      "snapshot_event_count": 0,
+      "dataset_hash": "ed5042c2ec8a4190dd5208c2eff7f1d5167467c41fccd8f37145db66a8e418da",
+      "policy_hash": "62940ef96152d3701e6ffbf85475a117ff4ff6d94d2b44effafe74534975f2e3",
+      "registry_id": "DEMO-NOT-AUTHORITY",
+      "as_of": "2026-11-01T12:01:00Z",
+      "request": {
+        "request_id": "DEMO-ORDER-001",
+        "inputs": [
+          "split:1"
+        ],
+        "recipient": "synthetic-recipient",
+        "amount_sats": 100000
+      },
+      "version": 2,
+      "checker_id": "checker-reserve",
+      "expires_at": "2026-11-01T12:06:00Z"
+    },
+    "signatures": [
+      {
+        "key_id": "checker-reserve",
+        "signature": "2376031c53fe9106f1f5d0656928ad2fb47423ac293652126d9f3f32e7f6118e1f797b5b3017923a2c80e5f50689ac73e86d825f58dbcf36f178eae1cb4f1a09"
+      }
+    ]
+  },
+  "replacement_result": {
+    "signature_valid": true,
+    "payment_matches": true,
+    "checked_result": "no_known_mark",
+    "current_result": "no_known_mark",
+    "late_signal": false,
+    "policy_decision": "eligible_under_experimental_policy",
+    "receipt_sha256": "956149a0b56dcf6b3fcb16cf8a9c52f0ef9dd7062b4a2ff2a87dbf07cd019b10",
+    "snapshot_head": "0000000000000000000000000000000000000000000000000000000000000000",
+    "automatic_exemption": false,
+    "legal_guarantee": false,
+    "limitations": "No receipt erases tags or proves an actual on-chain payment, honest purchaser, trusted time or complete registry.",
+    "key_manifest_sha256": "5837280b73dbd7ab2a5adc5ac428ae2c4a1c7a442610970656e86270435e6ccd",
+    "key_manifest_sequence": 2
+  },
+  "notice": "PUBLIC TEST KEYS, SYNTHETIC DATA, FIXED TEST CLOCK. NOT PRODUCTION AUTHORITY.",
+  "root_public_key": "44a3c6a41095fabe116699cfdfa8024dadaa9d9252a919b0d7855a7cb1d3928f",
+  "manifest_checkpoint": "1892d41cf2e9b65a1ae67fe4ad73ec82d1df5da4d690edab7cd4b0b054573749",
+  "manifest": {
+    "payload": {
+      "version": 1,
+      "sequence": 1,
+      "previous": "0000000000000000000000000000000000000000000000000000000000000000",
+      "issued_at": "2026-11-01T12:00:00Z",
+      "expires_at": "2026-11-02T12:00:00Z",
+      "trust": {
+        "registry_id": "DEMO-NOT-AUTHORITY",
+        "quorum": 2,
+        "reviewers": {
+          "reviewer-a": "b826f3dec1ad01dc76198a9f4058573ab95bceb27d34e5e42bc8845484fdcb54",
+          "reviewer-b": "104cb229bb32feec859f1fe3b919d94bfc8bc84cdee0cc26ed0ea4004006112d",
+          "reviewer-c": "5b53279286e80fe1df644982e2162b3d6c95407f4d98b0fd93b5b0667da6b166"
+        },
+        "checkers": {
+          "checker": "c398ddcd2c506999646f7b914629cf2cf1e52980805ee157e26d63d7931f951d",
+          "checker-reserve": "2f580fc5f30bf2aedd170ba1748b78499b046dd797f019a628f9daeba6f62bf4"
+        }
+      },
+      "keys": {
+        "reviewer-a": {
+          "not_before": "2026-11-01T12:00:00Z",
+          "not_after": "2026-11-03T12:00:00Z",
+          "revoked": false
+        },
+        "reviewer-b": {
+          "not_before": "2026-11-01T12:00:00Z",
+          "not_after": "2026-11-03T12:00:00Z",
+          "revoked": false
+        },
+        "reviewer-c": {
+          "not_before": "2026-11-01T12:00:00Z",
+          "not_after": "2026-11-03T12:00:00Z",
+          "revoked": false
+        },
+        "checker": {
+          "not_before": "2026-11-01T12:00:00Z",
+          "not_after": "2026-11-03T12:00:00Z",
+          "revoked": false
+        },
+        "checker-reserve": {
+          "not_before": "2026-11-01T12:01:00Z",
+          "not_after": "2026-11-03T12:00:00Z",
+          "revoked": false
+        }
+      }
+    },
+    "signature": "42059ba79040b59b8570ee0a069f730e30eb9697e99411e0e079f0554d79e2e5fd3936cced9001e649308fd27ba61519792cfded0585b3c8fa8b615756bab102"
+  },
+  "revoked_checkpoint": "5837280b73dbd7ab2a5adc5ac428ae2c4a1c7a442610970656e86270435e6ccd",
+  "revoked_manifest": {
+    "payload": {
+      "version": 1,
+      "sequence": 2,
+      "previous": "1892d41cf2e9b65a1ae67fe4ad73ec82d1df5da4d690edab7cd4b0b054573749",
+      "issued_at": "2026-11-01T12:01:00Z",
+      "expires_at": "2026-11-02T12:00:00Z",
+      "trust": {
+        "registry_id": "DEMO-NOT-AUTHORITY",
+        "quorum": 2,
+        "reviewers": {
+          "reviewer-a": "b826f3dec1ad01dc76198a9f4058573ab95bceb27d34e5e42bc8845484fdcb54",
+          "reviewer-b": "104cb229bb32feec859f1fe3b919d94bfc8bc84cdee0cc26ed0ea4004006112d",
+          "reviewer-c": "5b53279286e80fe1df644982e2162b3d6c95407f4d98b0fd93b5b0667da6b166"
+        },
+        "checkers": {
+          "checker": "c398ddcd2c506999646f7b914629cf2cf1e52980805ee157e26d63d7931f951d",
+          "checker-reserve": "2f580fc5f30bf2aedd170ba1748b78499b046dd797f019a628f9daeba6f62bf4"
+        }
+      },
+      "keys": {
+        "reviewer-a": {
+          "not_before": "2026-11-01T12:00:00Z",
+          "not_after": "2026-11-03T12:00:00Z",
+          "revoked": false
+        },
+        "reviewer-b": {
+          "not_before": "2026-11-01T12:00:00Z",
+          "not_after": "2026-11-03T12:00:00Z",
+          "revoked": false
+        },
+        "reviewer-c": {
+          "not_before": "2026-11-01T12:00:00Z",
+          "not_after": "2026-11-03T12:00:00Z",
+          "revoked": false
+        },
+        "checker": {
+          "not_before": "2026-11-01T12:00:00Z",
+          "not_after": "2026-11-03T12:00:00Z",
+          "revoked": true
+        },
+        "checker-reserve": {
+          "not_before": "2026-11-01T12:01:00Z",
+          "not_after": "2026-11-03T12:00:00Z",
+          "revoked": false
+        }
+      }
+    },
+    "signature": "f284445c9a80a6b54bf744ca7c1256a128457b761c11735d635fdbecceef702c6c09547d0fea85a181222facd4df7e471e1fc1d53b9a0a819db71cfa6ea7ff00"
+  },
+  "bundle": {
+    "ledger": {
+      "schema_version": 1,
+      "network": "simulation",
+      "name": "Il marchio segue i passaggi",
+      "description": "Un BTC marcato viene diviso e trasferito ancora. Le commissioni escono dal perimetro del modello.",
+      "transactions": [
+        {
+          "txid": "origin",
+          "inputs": [],
+          "outputs": [
+            {
+              "value_sats": 100000000,
+              "label": "Somma marcata"
+            },
+            {
+              "value_sats": 100000000,
+              "label": "Somma separata"
+            }
+          ],
+          "label": "Origine simulata"
+        },
+        {
+          "txid": "split",
+          "inputs": [
+            {
+              "txid": "origin",
+              "vout": 0
+            }
+          ],
+          "outputs": [
+            {
+              "value_sats": 60000000,
+              "label": "Prima quota"
+            },
+            {
+              "value_sats": 39900000,
+              "label": "Seconda quota"
+            }
+          ],
+          "label": "Divisione"
+        },
+        {
+          "txid": "payment",
+          "inputs": [
+            {
+              "txid": "split",
+              "vout": 0
+            }
+          ],
+          "outputs": [
+            {
+              "value_sats": 20000000,
+              "label": "Nuovo destinatario"
+            },
+            {
+              "value_sats": 39950000,
+              "label": "Resto"
+            }
+          ],
+          "label": "Secondo trasferimento"
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "DEMO-001",
+          "status": "pending",
+          "seeds": [
+            {
+              "txid": "origin",
+              "vout": 0
+            }
+          ],
+          "evidence": [
+            {
+              "reference": "urn:satotag:synthetic:DEMO-001",
+              "description": "Scenario inventato per il test. Nessun furto o indirizzo reale.",
+              "sha256": "02c0f39677be8eaddc6f0fe1cfc758f147e641fddcc2fe11e8166257c62f59ba"
+            }
+          ],
+          "note": "Attestazione simulata, non verificata da un\u2019autorit\u00e0."
+        }
+      ]
+    },
+    "events": []
+  },
+  "payment": {
+    "request_id": "DEMO-ORDER-001",
+    "inputs": [
+      "split:1"
+    ],
+    "recipient": "synthetic-recipient",
+    "amount_sats": 100000
+  },
+  "receipt": {
+    "payload": {
+      "result": "no_known_mark",
+      "request_hash": "74916d67d95ef230dce9082f00bb5f463fe3d31095c7120bdaa240b8787e01fd",
+      "snapshot_head": "0000000000000000000000000000000000000000000000000000000000000000",
+      "snapshot_event_count": 0,
+      "dataset_hash": "ed5042c2ec8a4190dd5208c2eff7f1d5167467c41fccd8f37145db66a8e418da",
+      "policy_hash": "62940ef96152d3701e6ffbf85475a117ff4ff6d94d2b44effafe74534975f2e3",
+      "registry_id": "DEMO-NOT-AUTHORITY",
+      "as_of": "2026-11-01T12:00:00Z",
+      "request": {
+        "request_id": "DEMO-ORDER-001",
+        "inputs": [
+          "split:1"
+        ],
+        "recipient": "synthetic-recipient",
+        "amount_sats": 100000
+      },
+      "version": 2,
+      "checker_id": "checker",
+      "expires_at": "2026-11-01T12:05:00Z"
+    },
+    "signatures": [
+      {
+        "key_id": "checker",
+        "signature": "96be46cceebdfc8302934452bd724093cb5d2cf196b60932eda4e310a10e61a1e6eeb9c1c4985efd813b171e62e00ba182d015fe839b1da18d9c9ecb891dcc09"
+      }
+    ]
+  },
+  "valid_result": {
+    "signature_valid": true,
+    "payment_matches": true,
+    "checked_result": "no_known_mark",
+    "current_result": "no_known_mark",
+    "late_signal": false,
+    "policy_decision": "eligible_under_experimental_policy",
+    "receipt_sha256": "fb51a1a1303a94d60db9dd99aafb9f993b22a801be85e0c62853e8aa9d944d9c",
+    "snapshot_head": "0000000000000000000000000000000000000000000000000000000000000000",
+    "automatic_exemption": false,
+    "legal_guarantee": false,
+    "limitations": "No receipt erases tags or proves an actual on-chain payment, honest purchaser, trusted time or complete registry.",
+    "key_manifest_sha256": "1892d41cf2e9b65a1ae67fe4ad73ec82d1df5da4d690edab7cd4b0b054573749",
+    "key_manifest_sequence": 1
+  },
+  "revoked_result": "Key is revoked; manual recovery required"
+}
