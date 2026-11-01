@@ -4,7 +4,7 @@
     "request_hash": "74916d67d95ef230dce9082f00bb5f463fe3d31095c7120bdaa240b8787e01fd",
     "snapshot_head": "0000000000000000000000000000000000000000000000000000000000000000",
     "snapshot_event_count": 0,
-    "dataset_hash": "ed5042c2ec8a4190dd5208c2eff7f1d5167467c41fccd8f37145db66a8e418da",
+    "dataset_hash": "e3efd7ae72d86d0a960c775e60764a4d0ee77dd82366849b82e61e88d6f5d070",
     "policy_hash": "e0b2b5ff01f2effc71c13b140b566f4eced5e4b87c9caa0586648c7ab50edab2",
     "registry_id": "DEMO-NOT-AUTHORITY",
     "as_of": "2026-11-01T12:00:00Z",
@@ -23,7 +23,7 @@
   "signatures": [
     {
       "key_id": "checker",
-      "signature": "04e597b42c96991bbc57845fb0b2de730179f798298e5d8c4f12f23a46a5031cbca338aedc27b8b67b65b83595b9b84db41e6b8b84d00fc4aa40100701b3280a"
+      "signature": "4d1d5112d02e4f05a57663af5a2ee9ebfd39fed35905fcd0bf60ad99e204651f6c380279b94ac7f44c6d752de159d5dd133018db2b36aadbed9edf9c96978a02"
     }
   ]
 }

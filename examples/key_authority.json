@@ -5,7 +5,7 @@
       "request_hash": "74916d67d95ef230dce9082f00bb5f463fe3d31095c7120bdaa240b8787e01fd",
       "snapshot_head": "0000000000000000000000000000000000000000000000000000000000000000",
       "snapshot_event_count": 0,
-      "dataset_hash": "ed5042c2ec8a4190dd5208c2eff7f1d5167467c41fccd8f37145db66a8e418da",
+      "dataset_hash": "e3efd7ae72d86d0a960c775e60764a4d0ee77dd82366849b82e61e88d6f5d070",
       "policy_hash": "62940ef96152d3701e6ffbf85475a117ff4ff6d94d2b44effafe74534975f2e3",
       "registry_id": "DEMO-NOT-AUTHORITY",
       "as_of": "2026-11-01T12:01:00Z",
@@ -24,7 +24,7 @@
     "signatures": [
       {
         "key_id": "checker-reserve",
-        "signature": "2376031c53fe9106f1f5d0656928ad2fb47423ac293652126d9f3f32e7f6118e1f797b5b3017923a2c80e5f50689ac73e86d825f58dbcf36f178eae1cb4f1a09"
+        "signature": "6764808e264567fa6be290575ce73e7f0a0d64cd2e36eafdf9e651f8b3098702f7a2718a9200adbb1fc01aa36dba6ac580252a5e0e1dbc0e8c0f3439cd92c603"
       }
     ]
   },
@@ -35,7 +35,7 @@
     "current_result": "no_known_mark",
     "late_signal": false,
     "policy_decision": "eligible_under_experimental_policy",
-    "receipt_sha256": "956149a0b56dcf6b3fcb16cf8a9c52f0ef9dd7062b4a2ff2a87dbf07cd019b10",
+    "receipt_sha256": "0782bf1c710601a24a2207d320ef6dee06c328e3b1fc08cbf3eebc4c1b675306",
     "snapshot_head": "0000000000000000000000000000000000000000000000000000000000000000",
     "automatic_exemption": false,
     "legal_guarantee": false,
@@ -151,8 +151,8 @@
     "ledger": {
       "schema_version": 1,
       "network": "simulation",
-      "name": "Il marchio segue i passaggi",
-      "description": "Un BTC marcato viene diviso e trasferito ancora. Le commissioni escono dal perimetro del modello.",
+      "name": "The mark follows each transfer",
+      "description": "One marked BTC is split and transferred again. Fees leave the modelled perimeter.",
       "transactions": [
         {
           "txid": "origin",
@@ -160,14 +160,14 @@
           "outputs": [
             {
               "value_sats": 100000000,
-              "label": "Somma marcata"
+              "label": "Marked funds"
             },
             {
               "value_sats": 100000000,
-              "label": "Somma separata"
+              "label": "Separate funds"
             }
           ],
-          "label": "Origine simulata"
+          "label": "Synthetic origin"
         },
         {
           "txid": "split",
@@ -180,14 +180,14 @@
           "outputs": [
             {
               "value_sats": 60000000,
-              "label": "Prima quota"
+              "label": "First share"
             },
             {
               "value_sats": 39900000,
-              "label": "Seconda quota"
+              "label": "Second share"
             }
           ],
-          "label": "Divisione"
+          "label": "Split"
         },
         {
           "txid": "payment",
@@ -200,14 +200,14 @@
           "outputs": [
             {
               "value_sats": 20000000,
-              "label": "Nuovo destinatario"
+              "label": "New recipient"
             },
             {
               "value_sats": 39950000,
-              "label": "Resto"
+              "label": "Change"
             }
           ],
-          "label": "Secondo trasferimento"
+          "label": "Second transfer"
         }
       ],
       "cases": [
@@ -223,11 +223,11 @@
           "evidence": [
             {
               "reference": "urn:satotag:synthetic:DEMO-001",
-              "description": "Scenario inventato per il test. Nessun furto o indirizzo reale.",
+              "description": "Invented test scenario. No real theft or address.",
               "sha256": "02c0f39677be8eaddc6f0fe1cfc758f147e641fddcc2fe11e8166257c62f59ba"
             }
           ],
-          "note": "Attestazione simulata, non verificata da un\u2019autorit\u00e0."
+          "note": "Synthetic attestation, not verified by an authority."
         }
       ]
     },
@@ -247,7 +247,7 @@
       "request_hash": "74916d67d95ef230dce9082f00bb5f463fe3d31095c7120bdaa240b8787e01fd",
       "snapshot_head": "0000000000000000000000000000000000000000000000000000000000000000",
       "snapshot_event_count": 0,
-      "dataset_hash": "ed5042c2ec8a4190dd5208c2eff7f1d5167467c41fccd8f37145db66a8e418da",
+      "dataset_hash": "e3efd7ae72d86d0a960c775e60764a4d0ee77dd82366849b82e61e88d6f5d070",
       "policy_hash": "62940ef96152d3701e6ffbf85475a117ff4ff6d94d2b44effafe74534975f2e3",
       "registry_id": "DEMO-NOT-AUTHORITY",
       "as_of": "2026-11-01T12:00:00Z",
@@ -266,7 +266,7 @@
     "signatures": [
       {
         "key_id": "checker",
-        "signature": "96be46cceebdfc8302934452bd724093cb5d2cf196b60932eda4e310a10e61a1e6eeb9c1c4985efd813b171e62e00ba182d015fe839b1da18d9c9ecb891dcc09"
+        "signature": "933cc861577e29d8070c1bebcaedbaeb1dfa762622b8dc1af425098272ebe6f3f4708e5f22c87aebec6f431b55260d6ef8ac7daa63acd176c6d763f802125005"
       }
     ]
   },
@@ -277,7 +277,7 @@
     "current_result": "no_known_mark",
     "late_signal": false,
     "policy_decision": "eligible_under_experimental_policy",
-    "receipt_sha256": "fb51a1a1303a94d60db9dd99aafb9f993b22a801be85e0c62853e8aa9d944d9c",
+    "receipt_sha256": "5f25bf3cff2101c1808ba0fa61cb791ebaff54e5d934fcd479b98e4e8fc7e5ef",
     "snapshot_head": "0000000000000000000000000000000000000000000000000000000000000000",
     "automatic_exemption": false,
     "legal_guarantee": false,

@@ -2,8 +2,8 @@
   "ledger": {
     "schema_version": 1,
     "network": "simulation",
-    "name": "Il marchio segue i passaggi",
-    "description": "Un BTC marcato viene diviso e trasferito ancora. Le commissioni escono dal perimetro del modello.",
+    "name": "The mark follows each transfer",
+    "description": "One marked BTC is split and transferred again. Fees leave the modelled perimeter.",
     "transactions": [
       {
         "txid": "origin",
@@ -11,14 +11,14 @@
         "outputs": [
           {
             "value_sats": 100000000,
-            "label": "Somma marcata"
+            "label": "Marked funds"
           },
           {
             "value_sats": 100000000,
-            "label": "Somma separata"
+            "label": "Separate funds"
           }
         ],
-        "label": "Origine simulata"
+        "label": "Synthetic origin"
       },
       {
         "txid": "split",
@@ -31,14 +31,14 @@
         "outputs": [
           {
             "value_sats": 60000000,
-            "label": "Prima quota"
+            "label": "First share"
           },
           {
             "value_sats": 39900000,
-            "label": "Seconda quota"
+            "label": "Second share"
           }
         ],
-        "label": "Divisione"
+        "label": "Split"
       },
       {
         "txid": "payment",
@@ -51,14 +51,14 @@
         "outputs": [
           {
             "value_sats": 20000000,
-            "label": "Nuovo destinatario"
+            "label": "New recipient"
           },
           {
             "value_sats": 39950000,
-            "label": "Resto"
+            "label": "Change"
           }
         ],
-        "label": "Secondo trasferimento"
+        "label": "Second transfer"
       }
     ],
     "cases": [
@@ -74,11 +74,11 @@
         "evidence": [
           {
             "reference": "urn:satotag:synthetic:DEMO-001",
-            "description": "Scenario inventato per il test. Nessun furto o indirizzo reale.",
+            "description": "Invented test scenario. No real theft or address.",
             "sha256": "02c0f39677be8eaddc6f0fe1cfc758f147e641fddcc2fe11e8166257c62f59ba"
           }
         ],
-        "note": "Attestazione simulata, non verificata da un\u2019autorit\u00e0."
+        "note": "Synthetic attestation, not verified by an authority."
       }
     ]
   },
@@ -88,19 +88,19 @@
         "version": 2,
         "registry_id": "DEMO-NOT-AUTHORITY",
         "policy_hash": "e0b2b5ff01f2effc71c13b140b566f4eced5e4b87c9caa0586648c7ab50edab2",
-        "dataset_hash": "ed5042c2ec8a4190dd5208c2eff7f1d5167467c41fccd8f37145db66a8e418da",
+        "dataset_hash": "e3efd7ae72d86d0a960c775e60764a4d0ee77dd82366849b82e61e88d6f5d070",
         "seq": 1,
         "previous": "0000000000000000000000000000000000000000000000000000000000000000",
         "timestamp": "2026-11-01T12:01:00Z",
         "action": "submit",
         "case_id": "DEMO-001",
-        "evidence_hash": "440941fd5d42f950fc94599f932a87c7510167f2a20d497d53a81f6f0cca08d7",
+        "evidence_hash": "5fdbf7088c1f28adc79d1a9bf0e40c0eaf4671686e293ed2b512174603f277e4",
         "reason": "Synthetic submit; no real claim"
       },
       "signatures": [
         {
           "key_id": "reviewer-c",
-          "signature": "f57a1bb60ce36d32e3025d3e0b40678dcf601f677bcc8978aab5b6173b3efcb38a2e70c3d62feaa5e37f7173f611274c48ebb2f573ff854260dc96816e4b830e"
+          "signature": "d7df1f4df9d149b8aeef171f7ed4795bad001c51ee281b0ae015ad0786f0e45140d221026bdbf09a7f166fe16dfab54eb942b955188a8429561c5ab7d0beec0b"
         }
       ]
     },
@@ -109,23 +109,23 @@
         "version": 2,
         "registry_id": "DEMO-NOT-AUTHORITY",
         "policy_hash": "e0b2b5ff01f2effc71c13b140b566f4eced5e4b87c9caa0586648c7ab50edab2",
-        "dataset_hash": "ed5042c2ec8a4190dd5208c2eff7f1d5167467c41fccd8f37145db66a8e418da",
+        "dataset_hash": "e3efd7ae72d86d0a960c775e60764a4d0ee77dd82366849b82e61e88d6f5d070",
         "seq": 2,
-        "previous": "ec64cdaf6fa4eff9d413429366683049b0778b9cc5a5530954b69a283f8d0d5e",
+        "previous": "6c8de11e8e059482c1d46a5a713432a9bdb1b28b5e3716328b3b4012e3656712",
         "timestamp": "2026-11-01T12:02:00Z",
         "action": "accept",
         "case_id": "DEMO-001",
-        "evidence_hash": "440941fd5d42f950fc94599f932a87c7510167f2a20d497d53a81f6f0cca08d7",
+        "evidence_hash": "5fdbf7088c1f28adc79d1a9bf0e40c0eaf4671686e293ed2b512174603f277e4",
         "reason": "Synthetic accept; no real claim"
       },
       "signatures": [
         {
           "key_id": "reviewer-a",
-          "signature": "74570d0b26f52d33df29c3692c2fe8537aa6dc2bd7200b8ed14d07211f7d255215f1f4b662f5dae674cf602f0baadaf630c7dde299608c991d0a96625c5d9d09"
+          "signature": "0bbd6c9c3b96d42f9d5a9c8559828344ab90db7e47aff32c96a4ca4c5257516e5a88c21450cb83a656ea9c3250e93124767b2c9989d2e7ee59c5ff7cae43e400"
         },
         {
           "key_id": "reviewer-b",
-          "signature": "e3cb423b291113eb2fa1621ea77a157f1b28e9c7de3e2dcecef293418611085b8c3ee09a32c433edf6b1bc062da063eb14d8e8a7f9a9cfb15754e3c3c5c6800e"
+          "signature": "d9c1f0a330e8fa8de0a0a6fd5787a86b20fa894f76382857e1e9eb83aac33b9bdee36bfb96c379ff09e52d543827feebff2860b6f475e8c196dbedf136b89d00"
         }
       ]
     },
@@ -134,19 +134,19 @@
         "version": 2,
         "registry_id": "DEMO-NOT-AUTHORITY",
         "policy_hash": "e0b2b5ff01f2effc71c13b140b566f4eced5e4b87c9caa0586648c7ab50edab2",
-        "dataset_hash": "ed5042c2ec8a4190dd5208c2eff7f1d5167467c41fccd8f37145db66a8e418da",
+        "dataset_hash": "e3efd7ae72d86d0a960c775e60764a4d0ee77dd82366849b82e61e88d6f5d070",
         "seq": 3,
-        "previous": "26bd25f23ac5beedc92f64fd891af5f277365ba27c8d2d8bc9a862c608479427",
+        "previous": "81d2945e9c6daec2f1c67fcbe691162b4d2ccd1e97f1182ec7a6ad3e33026452",
         "timestamp": "2026-11-01T12:03:00Z",
         "action": "contest",
         "case_id": "DEMO-001",
-        "evidence_hash": "440941fd5d42f950fc94599f932a87c7510167f2a20d497d53a81f6f0cca08d7",
+        "evidence_hash": "5fdbf7088c1f28adc79d1a9bf0e40c0eaf4671686e293ed2b512174603f277e4",
         "reason": "Synthetic contest; no real claim"
       },
       "signatures": [
         {
           "key_id": "reviewer-c",
-          "signature": "dbdc18898df2284868fd4d4d8fe8f033c8c19e4d083177536509c249bf68f2a7a5606e39d34034feb5104adc2e0cfd4e36dc9cfac8468f97505b57724b908602"
+          "signature": "59b4e756f5c97802747900acb8ed9bddfe07364820032d62fd7c14ad0ee4dfcd97daf4fefe5c9e10a4adc7fb009417b18a1399c3d2f5f505050a33aff1239d0f"
         }
       ]
     },
@@ -155,23 +155,23 @@
         "version": 2,
         "registry_id": "DEMO-NOT-AUTHORITY",
         "policy_hash": "e0b2b5ff01f2effc71c13b140b566f4eced5e4b87c9caa0586648c7ab50edab2",
-        "dataset_hash": "ed5042c2ec8a4190dd5208c2eff7f1d5167467c41fccd8f37145db66a8e418da",
+        "dataset_hash": "e3efd7ae72d86d0a960c775e60764a4d0ee77dd82366849b82e61e88d6f5d070",
         "seq": 4,
-        "previous": "bc9902eb7c5f37d94fe805cef14b6806af43c30a30016d0861e59791128fd07e",
+        "previous": "8aaeb10b206f54e55c8f2b4bd386d66d8b432d58683ba643b9c36aae5620549c",
         "timestamp": "2026-11-01T12:04:00Z",
         "action": "revoke",
         "case_id": "DEMO-001",
-        "evidence_hash": "440941fd5d42f950fc94599f932a87c7510167f2a20d497d53a81f6f0cca08d7",
+        "evidence_hash": "5fdbf7088c1f28adc79d1a9bf0e40c0eaf4671686e293ed2b512174603f277e4",
         "reason": "Synthetic revoke; no real claim"
       },
       "signatures": [
         {
           "key_id": "reviewer-a",
-          "signature": "42ef6a11ee46bcf49d6939bef24bb35a3e4a02b59be77bd137a6d0594b614378705a0d9367e5516d655c6618345235d68305be9107f62285bd72da0ed84c490c"
+          "signature": "bf328b443de2822f8614a11b36a59a51786e845b521617fdf8883252a33abe5822d1e582b8367be420cb4a586f683abef38c3ab31d5365f2c5b36803e5123f00"
         },
         {
           "key_id": "reviewer-b",
-          "signature": "ea7429548ecb19a66558f24da7b88445e011c5e28fa9453abf224376992e917541a2dc4e429b05d904be2c86d4e3f20c01acd99aa43c4b7cedf2f9f342774c09"
+          "signature": "81fb7e7070952462ce1b6050172795a6d3c53ae7c2b3abce49e690f9dbd1bebaa2216d20268829677a0936f20e8b806b316202a600a9587bbe4ebf2f9ad1de0d"
         }
       ]
     }
