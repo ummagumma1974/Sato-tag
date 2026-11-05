@@ -1,0 +1,94 @@
+{
+  "notice": "Real local HTTP and SQLite execution with PUBLIC TEST KEYS and FICTIONAL assessments. No real payment, wallet or deposit credit.",
+  "scenarios": [
+    {
+      "name": "Marked payment",
+      "http_status": 403,
+      "response": {
+        "decision": "rejected",
+        "evidence_policy_sha256": "9b2b10829b21b88edb8234321287a1627a9b17266432c7ac5ebbda1f927f6ada",
+        "funds_credited": false,
+        "key_manifest_sha256": "1892d41cf2e9b65a1ae67fe4ad73ec82d1df5da4d690edab7cd4b0b054573749",
+        "reason": "Marked inputs are not admitted by this receiver",
+        "request_id": "DEMO-ORDER-001",
+        "scope": "local_admission_only",
+        "screening_result": "marked",
+        "snapshot_head": "d8f5b45035b28ad518663df6f80c7d0f75a6f7cb57034b84e3bfc79c296cf7a1"
+      }
+    },
+    {
+      "name": "Pending investigation",
+      "http_status": 409,
+      "response": {
+        "decision": "held",
+        "evidence_policy_sha256": "9b2b10829b21b88edb8234321287a1627a9b17266432c7ac5ebbda1f927f6ada",
+        "funds_credited": false,
+        "key_manifest_sha256": "1892d41cf2e9b65a1ae67fe4ad73ec82d1df5da4d690edab7cd4b0b054573749",
+        "reason": "Unresolved claims require review",
+        "request_id": "DEMO-ORDER-001",
+        "scope": "local_admission_only",
+        "screening_result": "review",
+        "snapshot_head": "1b75be07ffa0ac495e4b7eafb3499a0d8bd4b9bee3d7f0ee9849a6f92e601517"
+      }
+    },
+    {
+      "name": "Evidence unavailable",
+      "http_status": 503,
+      "response": {
+        "decision": "blocked",
+        "funds_credited": false,
+        "reason": "Missing evidence bytes",
+        "request_id": "DEMO-ORDER-001",
+        "scope": "local_admission_only"
+      }
+    },
+    {
+      "name": "Payer supplies a fake approval",
+      "http_status": 503,
+      "response": {
+        "decision": "blocked",
+        "funds_credited": false,
+        "reason": "Only payment fields are accepted",
+        "request_id": "DEMO-ORDER-001",
+        "scope": "local_admission_only"
+      }
+    },
+    {
+      "name": "Claim revoked, checked again",
+      "http_status": 200,
+      "response": {
+        "decision": "accepted",
+        "evidence_policy_sha256": "9b2b10829b21b88edb8234321287a1627a9b17266432c7ac5ebbda1f927f6ada",
+        "funds_credited": false,
+        "idempotent": false,
+        "key_manifest_sha256": "1892d41cf2e9b65a1ae67fe4ad73ec82d1df5da4d690edab7cd4b0b054573749",
+        "reason": "No known mark in the supplied scope; local reservation only",
+        "request_hash": "74916d67d95ef230dce9082f00bb5f463fe3d31095c7120bdaa240b8787e01fd",
+        "request_id": "DEMO-ORDER-001",
+        "scope": "local_admission_only",
+        "screening_result": "no_known_mark",
+        "snapshot_head": "65192495851bcb7f147937eddc0a47a7f30d265c2c18e03a910100c58fbc84c1"
+      }
+    },
+    {
+      "name": "Same payment retried",
+      "http_status": 200,
+      "response": {
+        "decision": "accepted",
+        "evidence_policy_sha256": "9b2b10829b21b88edb8234321287a1627a9b17266432c7ac5ebbda1f927f6ada",
+        "funds_credited": false,
+        "idempotent": true,
+        "key_manifest_sha256": "1892d41cf2e9b65a1ae67fe4ad73ec82d1df5da4d690edab7cd4b0b054573749",
+        "reason": "No known mark in the supplied scope; local reservation only",
+        "request_hash": "74916d67d95ef230dce9082f00bb5f463fe3d31095c7120bdaa240b8787e01fd",
+        "request_id": "DEMO-ORDER-001",
+        "scope": "local_admission_only",
+        "screening_result": "no_known_mark",
+        "snapshot_head": "65192495851bcb7f147937eddc0a47a7f30d265c2c18e03a910100c58fbc84c1"
+      }
+    }
+  ],
+  "admissions": 1,
+  "attempts": 6,
+  "funds_credited": false
+}

@@ -81,3 +81,9 @@ This authenticates structured assessments, not the truth of an allegation. Real 
 ```sh
 python -m tools.replay_binance_sample --check
 ```
+
+## Receiving service — decisions enforced locally
+
+The new [receiver integration](docs/RECEIVER.md) runs evidence screening before local invoice admission: marked inputs are rejected, unresolved claims held, and verification failures blocked. SQLite preserves admissions and prevents duplicate local input reservations; retries recheck current host state.
+
+[Try the recorded receiver scenarios](https://ummagumma1974.github.io/Sato-tag/#receiver). Run the actual local HTTP server with `python -m tools.receiver_demo --serve`, or reproduce all scenarios with `python -m tools.receiver_demo --check`. The service uses fictional payments and public demo keys; it never credits deposits, moves funds or freezes Bitcoin.

@@ -10,3 +10,9 @@ build/
 .env.*
 report.json
 .coverage
+
+# Local receiving-service state
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm

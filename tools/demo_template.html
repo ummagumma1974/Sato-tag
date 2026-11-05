@@ -48,6 +48,15 @@
 <p>The software verifies integrity and signed statements. People must establish whether the records are authentic, whether a theft occurred, and whether reviewers are truly independent. Nothing here freezes Bitcoin or determines market value. Legacy screening APIs do not enforce this evidence gate.</p>
 <p><a href="https://github.com/ummagumma1974/Sato-tag/blob/main/docs/EVIDENCE_REVIEW.md">Read the investigation procedure and run the checks →</a></p>
 </section>
+<section id="receiver" class="box" aria-labelledby="receiver-heading" style="margin-top:24px">
+<p class="eyebrow">Receiving service / end-to-end local test</p>
+<h2 id="receiver-heading">A receiving service that enforces its decision.</h2>
+<p>A real local HTTP service runs the evidence gate before admitting an invoice. It rejects marked inputs, holds unresolved cases and blocks requests when verification fails. SQLite stores admissions and reserves inputs to prevent duplicate local use.</p>
+<div id="receiver-controls" class="tabs" aria-label="Receiver test scenarios"></div>
+<div id="receiver-result" role="status" aria-live="polite" class="detail"></div>
+<p><strong>What you are viewing:</strong> recorded results from reproducible local HTTP tests, using fictional payments and public demo keys. Clicking a scenario displays its result; this static website is not a live payment server. An admission is not a deposit credit, a settled payment or a Bitcoin freeze.</p>
+<p><a href="https://github.com/ummagumma1974/Sato-tag/blob/main/docs/RECEIVER.md">Run the service and inspect the integration boundary →</a></p>
+</section>
 <footer><span>SATOTAG / OPEN RESEARCH / MIT</span><span>No wallet keys. No tracking. Runs offline.</span></footer></main><noscript>Enable JavaScript to explore the scenarios. The Python code also works without this demo.</noscript>
 <script id="governance-data" type="application/json">__SATOTAG_GOVERNANCE__</script>
 <script id="reports" type="application/json">__SATOTAG_REPORTS__</script>
@@ -91,6 +100,11 @@ function renderGovernance(i){const c=governance.cards[i],h=c.state.history.at(-1
 document.querySelectorAll('[data-governance]').forEach(b=>b.addEventListener('click',()=>renderGovernance(Number(b.dataset.governance))));
 $('gov-download').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(governance,null,2)+'\n'],{type:'application/json'}));const a=e('a');a.href=url;a.download='satotag-public-demo-signatures.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 renderGovernance(0);
+const receiverDemo=__SATOTAG_RECEIVER__;
+const receiverButtons=[];
+function showReceiver(i){const item=receiverDemo.scenarios[i];receiverButtons.forEach((b,j)=>b.setAttribute('aria-pressed',String(i===j)));document.getElementById('receiver-result').textContent='HTTP '+item.http_status+' · '+item.response.decision.toUpperCase()+' — '+item.response.reason+' | Funds credited: NO'+(item.response.idempotent?' | Duplicate: no second admission':'');}
+receiverDemo.scenarios.forEach((item,i)=>{const b=document.createElement('button');b.className='tab';b.textContent=item.name;b.addEventListener('click',()=>showReceiver(i));receiverButtons.push(b);document.getElementById('receiver-controls').appendChild(b);});
+showReceiver(0);
 const evidenceScenarios=__SATOTAG_EVIDENCE__;
 for(const scenario of evidenceScenarios){const row=document.createElement('tr');for(const key of ['name','outcome','detail']){const cell=document.createElement('td');cell.textContent=scenario[key];cell.style.whiteSpace='normal';row.appendChild(cell);}document.getElementById('evidence-results').appendChild(row);}
 
