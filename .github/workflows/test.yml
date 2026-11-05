@@ -23,3 +23,4 @@ jobs:
         run: python -m tools.keyring_demo --check
       - run: python -m tools.evidence_demo --check
       - run: python -m tools.replay_binance_sample --check
+      - run: python -m tools.receiver_demo --check
