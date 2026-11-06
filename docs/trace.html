@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="SatoTag TRACE: open-source, read-only Bitcoin UTXO tracing from any wallet's public address or transaction ID. No wallet connection, no private keys.">
+<meta name="color-scheme" content="dark">
+<title>SatoTag TRACE — Bitcoin UTXO Explorer</title>
+<style>
+:root{color-scheme:dark;--bg:#0a1219;--card:#14212b;--card2:#1b2c37;--line:#37505c;--fg:#f0f7fc;--muted:#b4cad3;--a:#73e8d8;--warn:#ffd28a;--bad:#ffa5ad}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 90% 0%,#19414d 0,transparent 34%),var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}main{max-width:1060px;margin:auto;padding:24px 14px 85px}header,footer{font-size:13px;color:var(--muted)}h1{font-size:clamp(34px,6vw,58px);letter-spacing:-.045em;line-height:1.07;margin:8px 0 14px}h2{font-size:21px;margin:0 0 10px}p{margin:9px 0;color:var(--muted)}strong{color:var(--fg)}a{color:var(--a);overflow-wrap:anywhere}input,select{background:#0c1820;color:var(--fg);border:1px solid var(--line);padding:12px 14px;border-radius:9px;width:100%;font:inherit}input:focus,select:focus,button:focus-visible{outline:2px solid var(--a);outline-offset:2px}label{display:block;margin:13px 0 6px;font-weight:650;font-size:13px;color:#d7e8ef}button{border:1px solid transparent;border-radius:9px;background:var(--a);color:#00161c;padding:11px 16px;font:700 14px system-ui;cursor:pointer}button.secondary{background:#294251;color:var(--fg);border-color:#446473}button:disabled{opacity:.55;cursor:not-allowed}.card{padding:20px;margin:18px 0;background:var(--card);border:1px solid var(--line);border-radius:15px}.notice{border-left:3px solid var(--warn);padding:12px 14px;background:#282719;color:#ffe4b3;font-size:13px;border-radius:6px}.row{display:flex;gap:12px;align-items:end;flex-wrap:wrap}.grow{flex:1;min-width:230px}.narrow{width:160px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.result{margin:10px 0;padding:14px;background:var(--card2);border:1px solid #426170;border-radius:10px}.tree{margin:10px 0 10px 8px;padding-left:12px;border-left:2px solid #3c7070}.tree.ambiguous{border-left-color:#bd945c}.mono{font:12px/1.7 ui-monospace,SFMono-Regular,monospace;overflow-wrap:anywhere}.small{font-size:12px}.chip{display:inline-block;border-radius:20px;padding:2px 9px;background:#204d4c;color:#bbfff6;font-size:11px;font-weight:700}.chip.warn{background:#5d4127;color:#ffe1b2}.chip.muted{background:#304453;color:#c5d6e0}.status{margin:16px 0;color:#d9e4ea}.error{color:var(--bad)}.value{font-weight:750;font-size:17px}.between{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}footer{padding:25px 0}pre{white-space:pre-wrap}@media(max-width:580px){.card{padding:15px}.actions button{flex:1}.narrow{width:100%}}
+</style>
+</head>
+<body><main>
+<header>SATOTAG / TRACE 0.2 · OPEN-SOURCE RESEARCH · BITCOIN MAINNET <span style="float:right"><a href="https://github.com/ummagumma1974/Sato-tag">GitHub source</a></span></header>
+<h1>Where did those<br>bitcoins go?</h1>
+<p>Trace publicly observable transaction paths from <strong>any Bitcoin wallet</strong> using an address or a TXID. No BitBox, Ledger, Trezor, exchange, or wallet provider is required.</p>
+<section class="card">
+<div class="notice"><strong>Read-only.</strong> Do not enter a seed phrase, private key, password, xpub or descriptor. This page never signs or broadcasts transactions. It queries a public explorer, which can see the addresses and TXIDs you search. An address does not represent an entire wallet.</div>
+<div class="row">
+<div class="grow"><label for="mode">Start from</label><select id="mode"><option value="txid">Transaction ID (TXID)</option><option value="address">Any Bitcoin mainnet address</option></select></div>
+<div class="narrow"><label for="depth">Trace depth</label><select id="depth"><option value="1">1 transaction</option><option value="2" selected>2 transactions</option><option value="3">3 transactions</option></select></div>
+</div>
+<label for="subject" id="subjectLabel">TXID · 64 hexadecimal characters</label>
+<input id="subject" placeholder="Paste a Bitcoin transaction ID" autocomplete="off" spellcheck="false" autocapitalize="off">
+<div class="actions"><button id="search">Search blockchain</button><button id="example" class="secondary">Load research example</button><button id="export" class="secondary" disabled>Export JSON report</button><button id="stop" class="secondary" disabled>Stop</button></div>
+<p class="small">Data provider: <a href="https://mempool.space/docs/api/rest" target="_blank" rel="noopener noreferrer">mempool.space public API</a>. Explorer data is not independently verified by this page. Rate limiting, unconfirmed transactions and chain reorganizations can change results.</p>
+</section>
+<div id="status" class="status" role="status">Ready to search. No account or wallet connection needed.</div>
+<div id="results" aria-live="polite"></div>
+<section class="card">
+<h2>What these results mean</h2>
+<p><span class="chip">OBSERVED</span> The explorer reports that a specific output was spent by a specific transaction. This verifies a public linkage, <em>not</em> the recipient's identity.</p>
+<p><span class="chip warn">AMBIGUOUS</span> A spending transaction has multiple inputs. Its outputs cannot be assigned uniquely to the selected input by reading the blockchain alone.</p>
+<p><span class="chip muted">NOT RESOLVED</span> The search limit was reached, an output is unspent according to the explorer, or information is unavailable. Neither an unspent status nor a path proves that an address belongs to a thief.</p>
+<p class="small">Custodial exchange ledgers, off-chain transfers, cross-chain swaps and ownership cannot be inferred reliably from the Bitcoin ledger alone. No stolen-funds claim is adjudicated; the sample TXID is for technical illustration only. Do not use the report to blacklist or accuse an unrelated holder.</p>
+</section>
+<footer>Open-source prototype · no cookies or analytics · no private-key access · no guaranteed tracing through CoinJoin, custodial services or cross-chain movements. <a href="https://github.com/ummagumma1974/Sato-tag/issues/3">Review and feedback</a>.</footer>
+</main>
+<script>
+'use strict';
+(function () {
+const API = 'https://mempool.space/api';
+const LIMIT = 70;
+const $ = function(id){ return document.getElementById(id); };
+const txPattern = /^[0-9a-f]{64}$/i;
+const addrPattern = /^(bc1[ac-hj-np-z02-9]{11,87}|[13][a-km-zA-HJ-NP-Z1-9]{25,34})$/i;
+let active = 0, report = [], remaining = LIMIT, incomplete = false, busy = false;
+const txCache = new Map(), outspendCache = new Map();
+function node(tag, cls, text) {
+  const el = document.createElement(tag);
+  if (cls) el.className = cls;
+  if (text !== undefined) el.textContent = String(text);
+  return el;
+}
+function add(parent, tag, cls, text) {
+  const el = node(tag, cls, text);
+  parent.appendChild(el);
+  return el;
+}
+function link(parent, label, url) {
+  const a = add(parent,'a','',label);
+  a.href=url; a.target='_blank'; a.rel='noopener noreferrer';
+  return a;
+}
+function sat(s) {
+  return (Number(s)/100000000).toLocaleString('en-US',{maximumFractionDigits:8})+' BTC';
+}
+function brief(t) { return String(t).slice(0,12)+'…'+String(t).slice(-9); }
+function message(t,isError) { $('status').textContent=t; $('status').className='status'+(isError?' error':''); }
+function setBusy(v) {
+  busy=v;
+  $('search').disabled=v;
+  $('stop').disabled=!v;
+}
+function reset() {
+  active+=1; report=[]; remaining=LIMIT; incomplete=false;
+  $('results').replaceChildren(); $('export').disabled=true;
+  return active;
+}
+async function json(path, ticket) {
+  let res;
+  try { res=await fetch(API+path,{cache:'no-store',headers:{Accept:'application/json'}}); }
+  catch (_err) { throw Error('Network/API error. Try serving this page over HTTPS, or check browser restrictions.'); }
+  if (ticket!==active) throw Error('Cancelled');
+  if (res.status===429) throw Error('Explorer rate limit (HTTP 429). Retry with a lower depth.');
+  if (!res.ok) throw Error('Explorer returned HTTP '+res.status+'.');
+  return await res.json();
+}
+async function getTx(id,ticket) {
+  if (!txCache.has(id)) txCache.set(id,await json('/tx/'+id,ticket));
+  return txCache.get(id);
+}
+async function getOutspends(id,ticket) {
+  if (!outspendCache.has(id)) outspendCache.set(id,await json('/tx/'+id+'/outspends',ticket));
+  return outspendCache.get(id);
+}
+function section(title,description) {
+  const el=add($('results'),'section','card');
+  add(el,'h2','',title);
+  if (description) add(el,'p','small',description);
+  return el;
+}
+function button(parent,text,handler) {
+  const b=add(parent,'button','secondary',text);
+  b.type='button';b.addEventListener('click',handler);return b;
+}
+function showOutputs(parent,tx) {
+  add(parent,'p','small','TXID '+tx.txid+' · '+(tx.vin||[]).length+' inputs · '+(tx.vout||[]).length+' outputs. Select only the output you want to investigate.');
+  (tx.vout||[]).forEach(function(out,i){
+    const row=add(parent,'div','result');
+    add(row,'strong','', 'Output #'+i+' · '+sat(out.value));
+    add(row,'div','mono',out.scriptpubkey_address||out.scriptpubkey||'Unknown script');
+    button(row,'Trace this output',function(){ trace(tx.txid,i); });
+  });
+}
+async function addressHistory(address,ticket) {
+  let records=await json('/address/'+encodeURIComponent(address)+'/txs',ticket);
+  if (!Array.isArray(records)) throw Error('Unexpected explorer response.');
+  const root=section('Transactions involving this address','The first page is shown. More confirmed transactions may be fetched manually. This address is NOT your whole wallet.');
+  const seen=new Set();
+  function list(arr) {
+    arr.forEach(function(tx){
+      if (seen.has(tx.txid)) return; seen.add(tx.txid);
+      const outgoing=(tx.vin||[]).some(function(v){return v.prevout && v.prevout.scriptpubkey_address===address;});
+      if (!outgoing) return;
+      const card=add(root,'div','result');
+      add(card,'div','mono',tx.txid);
+      add(card,'p','small',(tx.status&&tx.status.confirmed?'Confirmed':'Unconfirmed')+' · '+(tx.vout||[]).length+' outputs');
+      button(card,'Inspect outputs',function(){ const x=section('Select an output from '+brief(tx.txid)); showOutputs(x,tx); x.scrollIntoView({behavior:'smooth'});});
+    });
+  }
+  list(records);
+  let chain=records.filter(function(tx){return tx.status&&tx.status.confirmed;});
+  let cursor=chain.length?chain[chain.length-1].txid:null;
+  let pages=0;
+  const more=button(root,'Load more confirmed transactions',async function(){
+    if (!cursor||pages>=4) return;
+    more.disabled=true;
+    try {
+      const arr=await json('/address/'+encodeURIComponent(address)+'/txs/chain/'+cursor,ticket);
+      if (!Array.isArray(arr)||arr.length===0) { cursor=null; message('End of available confirmed address history.'); return; }
+      list(arr);pages++;cursor=arr[arr.length-1].txid;
+      if(arr.length<25||pages>=4) cursor=null;
+      message('More confirmed transactions loaded. Search may still be incomplete.');
+    } catch(e) { if(ticket===active) message(e.message,true); }
+    finally {more.disabled=!cursor;}
+  });
+  more.disabled=!cursor;
+  message('Address results loaded. Only transactions that spend from this address are listed.');
+}
+async function search(){
+  const ticket=reset(), val=$('subject').value.trim();
+  const mode=$('mode').value;
+  if(mode==='txid'&&!txPattern.test(val)) { message('Enter a valid 64-character TXID.',true); return; }
+  if(mode==='address'&&!addrPattern.test(val)) { message('Enter a Bitcoin mainnet address, not a seed/xpub.',true); return; }
+  setBusy(true); message('Querying public Bitcoin explorer…');
+  try {
+    if(mode==='txid') {
+      const tx=await getTx(val.toLowerCase(),ticket);
+      showOutputs(section('Choose the starting output'),tx);
+      message('Transaction found. Select an output to trace.');
+    } else await addressHistory(val,ticket);
+  } catch(e) {if(ticket===active)message(e.message,true);}
+  finally {if(ticket===active)setBusy(false);}
+}
+async function walk(id,index,depth,ambiguous,parent,ticket,path) {
+  if(ticket!==active) return;
+  if(remaining<=0){incomplete=true; return;}
+  remaining--;
+  const point=id+':'+index;
+  if(path.has(point)) return;
+  const visited=new Set(path); visited.add(point);
+  const tx=await getTx(id,ticket);
+  const output=tx.vout && tx.vout[index];
+  if(!output) throw Error('Output not present: '+point);
+  const card=add(parent,'div','tree'+(ambiguous?' ambiguous':''));
+  const head=add(card,'div','between');
+  add(head,'strong','', 'Output #'+index+' · '+sat(output.value));
+  add(head,'span','chip'+(ambiguous?' warn':''),ambiguous?'AMBIGUOUS PATH':'OBSERVED OUTPUT');
+  add(card,'div','mono',point);
+  const address=output.scriptpubkey_address||null;
+  if(address) link(card,address,'https://mempool.space/address/'+encodeURIComponent(address));
+  else add(card,'div','small','Non-address script or unknown destination');
+  const row={outpoint:point,satoshis:output.value,address:address,ambiguous_path:ambiguous,spent_status:'not_checked',spending_txid:null,spending_tx_input_count:null,depth_remaining:depth};
+  report.push(row);
+  if(depth<=0) {incomplete=true; add(card,'p','small','Depth limit reached; later spends not checked.');return;}
+  const spends=await getOutspends(id,ticket);
+  const outspend=spends[index];
+  if(!outspend){incomplete=true;add(card,'p','small','Outspend status unavailable.');return;}
+  if(!outspend.spent) {
+    row.spent_status='unspent_according_to_explorer';
+    add(card,'p','small','Not spent according to explorer at query time.');
+    return;
+  }
+  row.spent_status='spent';row.spending_txid=outspend.txid;
+  link(card,'Spent by '+brief(outspend.txid),'https://mempool.space/tx/'+outspend.txid);
+  const next=await getTx(outspend.txid,ticket);
+  const multi=(next.vin||[]).length>1;
+  row.spending_tx_input_count=(next.vin||[]).length;
+  add(card,'p','small', (next.vin||[]).length+' inputs, '+(next.vout||[]).length+' outputs. '+(multi?'Multiple inputs: no unique attribution of outputs to this selected input.':'One input: new outputs derive from the spent value; owners and change remain unknown.'));
+  if(multi) add(card,'p','small','All outputs below are POSSIBLE descendants, not proven ownership or stolen amounts.');
+  const children=add(card,'div','');
+  for(let i=0;i<(next.vout||[]).length;i++){
+    if(ticket!==active) return;
+    if(remaining<=0){incomplete=true;add(children,'p','small','Additional branches truncated at the 70-output limit.');break;}
+    await walk(next.txid,i,depth-1,ambiguous||multi,children,ticket,visited);
+  }
+}
+async function trace(id,index) {
+  const ticket=reset();
+  setBusy(true);message('Tracing, up to '+LIMIT+' outputs…');
+  const root=section('Trace: '+brief(id)+':'+index,'A transaction path is not proof of ownership or crime.');
+  try {
+    await walk(id,index,Number($('depth').value),false,root,ticket,new Set());
+    if(ticket!==active) return;
+    $('export').disabled=report.length===0;
+    message('Finished: '+report.length+' outputs recorded'+(incomplete?'; some paths were not scanned.':'.'));
+  } catch(e) {
+    if(ticket===active){incomplete=true;$('export').disabled=report.length===0;message('Partial result: '+e.message,true);}
+  } finally {if(ticket===active)setBusy(false);}
+}
+$('mode').addEventListener('change',function(){
+  const isTx=$('mode').value==='txid';
+  $('subjectLabel').textContent=isTx?'TXID · 64 hexadecimal characters':'Bitcoin mainnet address (not an xpub)';
+  $('subject').placeholder=isTx?'Paste a Bitcoin transaction ID':'Paste bc1… / 1… / 3… address';
+});
+$('search').addEventListener('click',search);
+$('subject').addEventListener('keydown',function(e){if(e.key==='Enter')search();});
+$('stop').addEventListener('click',function(){reset();setBusy(false);message('Search stopped.');});
+$('example').addEventListener('click',function(){
+  $('mode').value='txid';$('mode').dispatchEvent(new Event('change'));
+  $('subject').value='07f4a69342697979b62860184c0416dc49f002802822a3aeefedb53938463eb6';
+  message('Example TXID loaded from a bounded observed replay. This is not proof of theft. Press Search.');
+});
+$('export').addEventListener('click',function(){
+  const data={app:'SatoTag TRACE',version:'0.2',queried_at_utc:new Date().toISOString(),
+    source:API,partial:incomplete,
+    disclaimer:'Read-only explorer paths; no source authentication, ownership inference, stolen-funds certification or full-chain completeness.',
+    records:report};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='satotag-trace-'+new Date().toISOString().slice(0,10)+'.json';a.click();
+  setTimeout(function(){URL.revokeObjectURL(url);},2000);
+});
+})();
+</script>
+</body></html>
