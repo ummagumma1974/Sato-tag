@@ -2,7 +2,7 @@
 
 **Open-source Bitcoin provenance research: UTXO exposure tracking, signed case reports and root-authorized key lifecycles.**
 
-[Try the demo](https://ummagumma1974.github.io/Sato-tag/) · [Research overview](https://ummagumma1974.github.io/Sato-tag/research.html) · [Download current source ZIP](https://github.com/ummagumma1974/Sato-tag/archive/refs/heads/main.zip) · [Public review challenge](https://github.com/ummagumma1974/Sato-tag/issues/3)
+[Try the demo](https://ummagumma1974.github.io/Sato-tag/) · [TRACE: any Bitcoin wallet](https://ummagumma1974.github.io/Sato-tag/trace.html) · [Research overview](https://ummagumma1974.github.io/Sato-tag/research.html) · [Download current source ZIP](https://github.com/ummagumma1974/Sato-tag/archive/refs/heads/main.zip) · [Public review challenge](https://github.com/ummagumma1974/Sato-tag/issues/3)
 
 Synthetic, offline research prototype. MIT license. No token, wallet connection or Bitcoin consensus change. See the research overview for scope and reproducible checks.
 
@@ -38,6 +38,15 @@ Works in your browser, including on a phone. No downloads or wallet connection r
 - [Downloadable offline demo](docs/index.html)
 - [Python source](satotag/engine.py)
 
+
+
+## SatoTag TRACE — public read-only Bitcoin transaction explorer
+
+**[Launch TRACE in your browser](https://ummagumma1974.github.io/Sato-tag/trace.html)** · [View the standalone source](docs/trace.html)
+
+TRACE is a separate, wallet-agnostic investigation aid: paste **any Bitcoin mainnet TXID or single address**, select an output, and follow observable spends and possible descendants through a public mempool.space API. It supports Bitcoin transactions regardless of whether the owner uses BitBox, Ledger, Trezor, software wallets, or another provider. It **does not** link to, discover, monitor, or access complete wallets; one address is not a wallet-wide audit. No seed, private key, xpub, descriptor, signing, or funds transfer is needed.
+
+Its branches are bounded by depth and output count. Multi-input transactions create ambiguous ancestry; no ownership or criminal attribution is made. The explorer receives queried addresses and transaction IDs; responses are **not** independently verified by a Bitcoin node. CoinJoin, custodial accounts, off-chain flows and cross-chain transfers are not resolved by the tool. This is not theft certification, an alert system, a forensic audit or proof of where stolen assets ultimately ended up.
 
 ## v0.2 — Signed registry
 
