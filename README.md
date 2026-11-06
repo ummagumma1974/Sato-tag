@@ -48,6 +48,8 @@ TRACE is a separate, wallet-agnostic investigation aid: paste **any Bitcoin main
 
 Its branches are bounded by depth and output count. Multi-input transactions create ambiguous ancestry; no ownership or criminal attribution is made. The explorer receives queried addresses and transaction IDs; responses are **not** independently verified by a Bitcoin node. CoinJoin, custodial accounts, off-chain flows and cross-chain transfers are not resolved by the tool. This is not theft certification, an alert system, a forensic audit or proof of where stolen assets ultimately ended up.
 
+**[Independent TRACE review: reproducible challenges and findings](https://github.com/ummagumma1974/Sato-tag/issues/8)** · [Adversarial review brief](docs/TRACE_REVIEW.md)
+
 ## v0.2 — Signed registry
 
 The prototype now verifies Ed25519 attestations, a reviewer quorum, hash-linked
